@@ -9,13 +9,15 @@
 ## Estructura del proyecto
 
 <details>
-<summary>Click me</summary>
+<summary>Click me!</summary>
 
 ```
 App/
 ├── backend/
+│   ├── ...
 │   └── Dockerfile
 ├── frontend/
+│   ├── ...
 │   └── Dockerfile
 └── docker-compose.yaml
 ```
