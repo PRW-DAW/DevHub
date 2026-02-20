@@ -9,7 +9,9 @@
 3. [Backend](#backend)
     1. [Instalación](#instalación)
     2. [Crear una aplicación](#crear-una-aplicación)
-4. [Recursos](#recursos)
+4. [Frontend](#frontend)
+    1. [Instalación](#instalación-1)
+5. [Recursos](#recursos)
 
 ## Introducción
 
@@ -75,6 +77,38 @@ composer run dev
 
 Una vez que haya iniciado el servidor de desarrollo, su aplicación será accesible en su navegador web en [http://localhost:8000](http://localhost:8000).
 
+## Frontend
+
+### Instalación
+
+<details>
+<summary>Detalles</summary>
+
+1. Project name: **frontend**
+2. Select a framework: **React**
+3. Select a variant: **JavaScript**
+4. Use Vite 8 beta (Experimental)?: **No**
+5. Install with npm and start now?: **No**
+</details>
+
+```shell
+npm create vite@latest
+```
+
+Una vez instalado React + Vite, ejecutaremos los siguientes comandos para iniciar el frontend:
+
+```shell
+cd frontend
+npm install
+npm run dev
+```
+
+> [!IMPORTANT]
+> 
+> En esta ocasión se ha decidido eliminar todo lo relacionado con eslint por problemas con numerosas vulnerabilidades.
+
 ## Recursos
 
 https://laravel.com/docs/12.x/installation#creating-a-laravel-project
+
+https://vite.dev/guide/#scaffolding-your-first-vite-project
