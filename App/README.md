@@ -71,7 +71,8 @@ Una vez creada la aplicación, puedes iniciar el servidor de desarrollo local de
 
 ```shell
 cd backend
-npm install && npm run build
+npm install
+npm run build
 composer run dev
 ```
 
@@ -100,6 +101,7 @@ Una vez instalado React + Vite, ejecutaremos los siguientes comandos para inicia
 ```shell
 cd frontend
 npm install
+npm run build
 npm run dev
 ```
 
