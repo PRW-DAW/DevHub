@@ -8,7 +8,8 @@
 2. [Estructura del proyecto](#estructura-del-proyecto)
 3. [Backend](#backend)
 4. [Frontend](#frontend)
-5. [Recursos](#recursos)
+5. [Configuración](#configuración)
+6. [Recursos](#recursos)
 
 ## Introducción
 
@@ -59,6 +60,30 @@ Detalles del proyecto:
 3. Select a variant: **JavaScript**
 4. Use Vite 8 beta (Experimental)?: **No**
 5. Install with npm and start now?: **No**
+
+## Configuración
+
+Antes de ejecutar el proyecto, crea el archivo de variables de entorno:
+
+```shell
+cd backend/
+cp .env.example .env
+```
+
+Luego, edita el archivo `.env` y configura las credenciales de la base de datos utilizada en Docker:
+
+```conf
+DB_CONNECTION=pgsql
+DB_HOST=postgres
+DB_PORT=5432
+DB_DATABASE=laravel
+DB_USERNAME=laravel
+DB_PASSWORD=secret
+```
+
+> [!IMPORTANT]
+> 
+> `DB_HOST` debe ser `postgres`, ya que corresponde al nombre del servicio definido en `docker-compose.yml`.
 
 ## Recursos
 
