@@ -12,9 +12,7 @@
 
 ## Introducción
 
-> [!NOTE]
-> 
-> Este proyecto ha sido construido desde un sistema operativo Linux, concretamente Debian 13 (Trixie).
+...
 
 ## Estructura del proyecto
 
