@@ -64,10 +64,9 @@ Detalles de la instalación del frontend:
 
 ## Configuración
 
-Antes de ejecutar el proyecto, crea el archivo de variables de entorno:
+Antes de ejecutar el proyecto, crea el archivo de variables de entorno en Laravel (Asegúrate de estar en el directorio `App/backend/`):
 
 ```shell
-cd backend/
 cp .env.example .env
 ```
 
