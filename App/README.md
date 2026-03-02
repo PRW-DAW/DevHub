@@ -2,6 +2,8 @@
 
 ¡Tu espacio para registrar, mostrar y destacar tus proyectos, llevando tu desarrollo personal al siguiente nivel!
 
+[![GitHub Org's stars](https://img.shields.io/github/stars/PRW-DAW/DevHub)](https://github.com/PRW-DAW/DevHub/stargazers)
+
 ## Índice
 
 1. [Introducción](#introducción)
