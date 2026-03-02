@@ -120,8 +120,10 @@ Este comando detiene los contenedores y elimina los datos locales del desarrollo
 
 ## Recursos
 
-https://laravel.com/docs/12.x/installation#creating-a-laravel-project
+Node.js https://nodejs.org/en/download
 
-https://vite.dev/guide/#scaffolding-your-first-vite-project
+Laravel https://laravel.com/docs/12.x/installation#creating-a-laravel-project
 
-https://docs.docker.com/engine/install/
+Vite https://vite.dev/guide/#scaffolding-your-first-vite-project
+
+Docker https://docs.docker.com/engine/install/
