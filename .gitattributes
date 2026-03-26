@@ -1,4 +1,13 @@
+# ===============================
+# Line ending normalization (EOL)
+# ===============================
+
+# Automatically detects text files and normalizes them to LF (Unix)
+# Git will convert CRLF -> LF on commit
 * text=auto eol=lf
+
+# Force CRLF (Windows) for specific scripts
+# Useful because some Windows environments require this format
 *.bat text eol=crlf
 *.cmd text eol=crlf
 *.ahk text eol=crlf
