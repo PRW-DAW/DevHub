@@ -167,8 +167,8 @@ El primer comando construirá las imágenes necesarias y el segundo levantará l
 
 Una vez que los contenedores estén activos, puedes acceder a los servicios desde tu navegador:
 
-- Backend (Laravel API): http://api.devhub.com/
-- Frontend (React + Vite): http://devhub.com/
+- Backend (Laravel API): [http://api.devhub.com/](http://api.devhub.com/)
+- Frontend (React + Vite): [http://devhub.com/](http://devhub.com/)
 
 Para finalizar el entorno de desarrollo, ejecuta el siguiente comando desde la raíz del proyecto:
 
