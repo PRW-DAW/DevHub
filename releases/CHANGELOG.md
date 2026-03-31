@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- Frontend React + Vite 8.0.1 TypeScript.
+- ...
 
 ### Deprecated
 
@@ -29,6 +29,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Security
 
 - ...
+
+## [0.2.0] - 2026/03/31
+
+### Changed
+
+- Frontend React + Vite 8.0.1 TypeScript.
 
 ## [0.1.0] - 2026/03/28
 
@@ -49,6 +55,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Initial files.
 
-[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.1.0...HEAD
+[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.2.0...HEAD
+[0.2.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.2.0
 [0.1.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.1.0
 [0.0.1]: https://github.com/PRW-DAW/DevHub/releases/tag/0.0.1
