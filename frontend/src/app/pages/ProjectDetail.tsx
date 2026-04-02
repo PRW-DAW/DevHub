@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import Sidebar from "../components/Sidebar";
 import AvatarDropdown from "../components/AvatarDropdown";
 import StarRating from "../components/StarRating";
-import { ChevronRight, ExternalLink, Github, Send } from "lucide-react";
+import { ChevronRight, ExternalLink, Globe, Send } from "lucide-react";
 
 interface Comment {
   id: number;
@@ -205,7 +205,7 @@ Este proyecto fue creado como parte de mi portafolio para demostrar mis habilida
                 }}
               >
                 Ver código en GitHub
-                <Github size={20} />
+                <Globe size={20} />
               </button>
             </div>
 
