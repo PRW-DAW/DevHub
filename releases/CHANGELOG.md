@@ -9,6 +9,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Added
 
 - API + Database migrations (Register, Login, Create & Read Post). [[Link](https://github.com/PRW-DAW/DevHub/blob/main/docs/date/20260408.md)]
+- Frontend states `name`, `username`, `error`, `loading`.
+- `handleSubmit` now calls the actual API and saves the token to `localStorage`.
+- In register mode, the `name` and `username` fields appear.
+- Shows Laravel validation errors in red.
+- The button displays "Loading..." while it waits.
 
 ### Changed
 
