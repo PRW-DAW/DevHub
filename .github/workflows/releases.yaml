@@ -20,9 +20,9 @@ jobs:
       # Build artifacts
       - name: Build artifacts
         run: |
-          zip -r ${{ env.ARTIFACT }}-${{ github.ref_name }}.zip backend/ docs/ frontend/ nginx/ CONTRIBUTING LICENSE .env.example docker-compose.yaml
+          zip -r ${{ env.ARTIFACT }}-${{ github.ref_name }}.zip backend/ docs/ frontend/ nginx/ CONTRIBUTING LICENSE .dockerignore .env.example docker-compose.yaml
           unzip -l ${{ env.ARTIFACT }}-${{ github.ref_name }}.zip
-          tar -czvf ${{ env.ARTIFACT }}-${{ github.ref_name }}.tar.gz backend/ docs/ frontend/ nginx/ CONTRIBUTING LICENSE .env.example docker-compose.yaml
+          tar -czvf ${{ env.ARTIFACT }}-${{ github.ref_name }}.tar.gz backend/ docs/ frontend/ nginx/ CONTRIBUTING LICENSE .dockerignore .env.example docker-compose.yaml
           tar -tzvf ${{ env.ARTIFACT }}-${{ github.ref_name }}.tar.gz
       # Create GitHub Release
       - name: Create GitHub Release
