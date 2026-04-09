@@ -5,6 +5,7 @@ import Profile from "./pages/Profile";
 import Connect from "./pages/Connect";
 import Companies from "./pages/Companies";
 import ProjectDetail from "./pages/ProjectDetail";
+import PrivateRoute from "./components/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -13,22 +14,22 @@ export const router = createBrowserRouter([
   },
   {
     path: "/feed",
-    Component: Feed,
+    element: <PrivateRoute><Feed /></PrivateRoute>,
   },
   {
     path: "/profile",
-    Component: Profile,
+    element: <PrivateRoute><Profile /></PrivateRoute>,
   },
   {
     path: "/connect",
-    Component: Connect,
+    element: <PrivateRoute><Connect /></PrivateRoute>,
   },
   {
     path: "/companies",
-    Component: Companies,
+    element: <PrivateRoute><Companies /></PrivateRoute>,
   },
   {
     path: "/project/:id",
-    Component: ProjectDetail,
+    element: <PrivateRoute><ProjectDetail /></PrivateRoute>,
   },
 ]);
