@@ -19,8 +19,6 @@
 
 1. [Introducción](#introducción)
 2. [Estructura del proyecto](#estructura-del-proyecto)
-    1. [Backend](#backend)
-    2. [Frontend](#frontend)
 3. [Clona el repositorio](#clona-el-repositorio)
 4. [Configuración del proyecto](#configuración-del-proyecto)
 5. [Configuración de hosts](#configuración-de-hosts)
