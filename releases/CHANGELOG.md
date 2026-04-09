@@ -8,11 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- `PrivateRoute` component to protect authenticated routes, redirecting to login if no token is found in `localStorage`.
+- ...
 
 ### Changed
 
-- `routes.tsx` updated to wrap all routes except `/` with `PrivateRoute`.
+- ...
 
 ### Deprecated
 
@@ -29,6 +29,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Security
 
 - ...
+
+## [0.5.0] - 2026/04/08
+
+### Added
+
+- `PrivateRoute` component to protect authenticated routes, redirecting to login if no token is found in `localStorage`.
+
+### Changed
+
+- `routes.tsx` updated to wrap all routes except `/` with `PrivateRoute`.
 
 ## [0.4.0] - 2026/04/08
 
@@ -76,7 +86,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Initial files.
 
-[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.4.0...HEAD
+[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.5.0...HEAD
+[0.5.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.5.0
 [0.4.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.4.0
 [0.3.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.3.0
 [0.2.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.2.0
