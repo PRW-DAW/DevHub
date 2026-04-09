@@ -8,12 +8,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- API + Database migrations (Register, Login, Create & Read Post). [[Link](https://github.com/PRW-DAW/DevHub/blob/main/docs/date/20260408.md)]
-- Frontend states `name`, `username`, `error`, `loading`.
-- `handleSubmit` now calls the actual API and saves the token to `localStorage`.
-- In register mode, the `name` and `username` fields appear.
-- Shows Laravel validation errors in red.
-- The button displays "Loading..." while it waits.
+- ...
 
 ### Changed
 
@@ -34,6 +29,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Security
 
 - ...
+
+## [0.4.0] - 2026/04/08
+
+### Added
+
+- API + Database migrations (Register, Login, Create & Read Post). [[Link](https://github.com/PRW-DAW/DevHub/blob/main/docs/date/20260408.md)]
+- Frontend states `name`, `username`, `error`, `loading`.
+- `handleSubmit` now calls the actual API and saves the token to `localStorage`.
+- In register mode, the `name` and `username` fields appear.
+- Shows Laravel validation errors in red.
+- The button displays "Loading..." while it waits.
 
 ## [0.3.0] - 2026/04/06
 
@@ -70,7 +76,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Initial files.
 
-[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.3.0...HEAD
+[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.4.0...HEAD
+[0.4.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.4.0
 [0.3.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.3.0
 [0.2.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.2.0
 [0.1.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.1.0
