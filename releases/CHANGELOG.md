@@ -8,11 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- ...
+- `PrivateRoute` component to protect authenticated routes, redirecting to login if no token is found in `localStorage`.
 
 ### Changed
 
-- ...
+- `routes.tsx` updated to wrap all routes except `/` with `PrivateRoute`.
 
 ### Deprecated
 
