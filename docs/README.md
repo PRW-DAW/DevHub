@@ -3,10 +3,6 @@
 [![GitHub Pages](https://img.shields.io/badge/%20-FFFFFF?style=social&logo=githubpages&logoColor=black&logoSize=auto)](https://prw-daw.github.io/DevHub/)
 [![GitHub Stars](https://img.shields.io/github/stars/PRW-DAW/DevHub?style=social&logo=github&logoColor=black&label=Stars&labelColor=FFFFFF&color=FFFFFF)](https://github.com/PRW-DAW/DevHub/stargazers)
 
-[![Docker Container](https://img.shields.io/badge/Nginx-2560FF?style=flat&logo=docker&logoColor=FFFFFF)](https://github.com/PRW-DAW/DevHub/pkgs/container/devhub-nginx)
-[![Docker Pulls](https://img.shields.io/docker/pulls/fjrodafo/devhub-nginx?style=flat&logo=docker&logoColor=FFFFFF&label=Pulls&labelColor=2560FF&color=2560FF)](https://hub.docker.com/r/fjrodafo/devhub-nginx)
-[![Image Size](https://img.shields.io/docker/image-size/fjrodafo/devhub-nginx?style=flat&logo=docker&logoColor=FFFFFF&label=Size&labelColor=2560FF&color=2560FF)](https://hub.docker.com/r/fjrodafo/devhub-nginx)
-
 [![Docker Container](https://img.shields.io/badge/Backend-2560FF?style=flat&logo=docker&logoColor=FFFFFF)](https://github.com/PRW-DAW/DevHub/pkgs/container/devhub-backend)
 [![Docker Pulls](https://img.shields.io/docker/pulls/fjrodafo/devhub-backend?style=flat&logo=docker&logoColor=FFFFFF&label=Pulls&labelColor=2560FF&color=2560FF)](https://hub.docker.com/r/fjrodafo/devhub-backend)
 [![Image Size](https://img.shields.io/docker/image-size/fjrodafo/devhub-backend?style=flat&logo=docker&logoColor=FFFFFF&label=Size&labelColor=2560FF&color=2560FF)](https://hub.docker.com/r/fjrodafo/devhub-backend)
@@ -14,6 +10,10 @@
 [![Docker Container](https://img.shields.io/badge/Frontend-2560FF?style=flat&logo=docker&logoColor=FFFFFF)](https://github.com/PRW-DAW/DevHub/pkgs/container/devhub-frontend)
 [![Docker Pulls](https://img.shields.io/docker/pulls/fjrodafo/devhub-frontend?style=flat&logo=docker&logoColor=FFFFFF&label=Pulls&labelColor=2560FF&color=2560FF)](https://hub.docker.com/r/fjrodafo/devhub-frontend)
 [![Image Size](https://img.shields.io/docker/image-size/fjrodafo/devhub-frontend?style=flat&logo=docker&logoColor=FFFFFF&label=Size&labelColor=2560FF&color=2560FF)](https://hub.docker.com/r/fjrodafo/devhub-frontend)
+
+[![Docker Container](https://img.shields.io/badge/Nginx-2560FF?style=flat&logo=docker&logoColor=FFFFFF)](https://github.com/PRW-DAW/DevHub/pkgs/container/devhub-nginx)
+[![Docker Pulls](https://img.shields.io/docker/pulls/fjrodafo/devhub-nginx?style=flat&logo=docker&logoColor=FFFFFF&label=Pulls&labelColor=2560FF&color=2560FF)](https://hub.docker.com/r/fjrodafo/devhub-nginx)
+[![Image Size](https://img.shields.io/docker/image-size/fjrodafo/devhub-nginx?style=flat&logo=docker&logoColor=FFFFFF&label=Size&labelColor=2560FF&color=2560FF)](https://hub.docker.com/r/fjrodafo/devhub-nginx)
 
 ## Índice
 
