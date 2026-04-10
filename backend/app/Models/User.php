@@ -42,6 +42,11 @@ class User extends Authenticatable
         return $this->hasMany(Post::class);
     }
 
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
     /**
      * Get the attributes that should be cast.
      *
