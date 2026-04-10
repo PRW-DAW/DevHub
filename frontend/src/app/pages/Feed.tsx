@@ -7,11 +7,14 @@ import StarRating from "../components/StarRating";
 import AddProjectModal from "../components/AddProjectModal";
 import { getTechTagColors } from "../utils/techTagColors";
 
-interface Post {
+interface Project {
   id: number;
   user_id: number;
-  content: string;
-  media_url: string | null;
+  title: string;
+  description: string;
+  tags: string[];
+  project_link: string;
+  github_link: string | null;
   created_at: string;
   user: {
     id: number;
@@ -47,33 +50,30 @@ export default function Feed() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddProjectModalOpen, setIsAddProjectModalOpen] = useState(false);
-  const [posts, setPosts] = useState<Post[]>([]);
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
-    const fetchPosts = async () => {
+    const fetchProjects = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://api.devhub.com/api/posts", {
+        const res = await fetch("http://api.devhub.com/api/projects", {
           headers: {
             "Accept": "application/json",
             "Authorization": `Bearer ${token}`,
           },
         });
-
-        if (!res.ok) throw new Error("Error al cargar los posts");
-
+        if (!res.ok) throw new Error("Error al cargar los proyectos");
         const data = await res.json();
-        setPosts(data.data);
+        setProjects(data.data);
       } catch (err) {
-        setError("No se pudieron cargar los posts.");
+        setError("No se pudieron cargar los proyectos.");
       } finally {
         setLoading(false);
       }
     };
-
-    fetchPosts();
+    fetchProjects();
   }, []);
 
   const handleAddProject = async (projectData: {
@@ -85,29 +85,35 @@ export default function Feed() {
   }) => {
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch("http://api.devhub.com/api/posts", {
+      const res = await fetch("http://api.devhub.com/api/projects", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
           "Accept": "application/json",
           "Authorization": `Bearer ${token}`,
         },
-        body: JSON.stringify({ content: projectData.description }),
+        body: JSON.stringify({
+          title: projectData.title,
+          description: projectData.description,
+          tags: projectData.tags,
+          project_link: projectData.projectLink,
+          github_link: projectData.githubLink || null,
+        }),
       });
-
       if (!res.ok) throw new Error("Error al publicar");
-
-      const newPost = await res.json();
-      setPosts((prev) => [newPost, ...prev]);
+      const newProject = await res.json();
+      setProjects((prev) => [newProject, ...prev]);
       setIsAddProjectModalOpen(false);
     } catch (err) {
       console.error(err);
     }
   };
 
-  const filteredPosts = posts.filter((post) =>
-    post.content.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    post.user.username.toLowerCase().includes(searchQuery.toLowerCase())
+  const filteredProjects = projects.filter((project) =>
+    project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    project.user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    project.tags?.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
   );
 
   return (
@@ -155,55 +161,60 @@ export default function Feed() {
               </div>
             </button>
 
-            {loading && (
-              <div className="text-center py-12" style={{ color: "#9B8EC4" }}>Cargando posts...</div>
+            {loading && <div className="text-center py-12" style={{ color: "#9B8EC4" }}>Cargando proyectos...</div>}
+            {error && <div className="text-center py-12" style={{ color: "#B91C1C" }}>{error}</div>}
+            {!loading && !error && filteredProjects.length === 0 && (
+              <div className="text-center py-12" style={{ color: "#9B8EC4" }}>No hay proyectos todavía.</div>
             )}
 
-            {error && (
-              <div className="text-center py-12" style={{ color: "#B91C1C" }}>{error}</div>
-            )}
-
-            {!loading && !error && filteredPosts.length === 0 && (
-              <div className="text-center py-12" style={{ color: "#9B8EC4" }}>No hay posts todavía.</div>
-            )}
-
-            {filteredPosts.map((post, index) => {
+            {filteredProjects.map((project, index) => {
               const gradient = avatarGradients[index % avatarGradients.length];
+              const firstTag = project.tags?.[0];
+              const tagColor = firstTag ? getTechTagColors(firstTag).color : "#7C3AED";
               return (
                 <div
-                  key={post.id}
-                  onMouseEnter={() => setHoveredCard(post.id)}
+                  key={project.id}
+                  onMouseEnter={() => setHoveredCard(project.id)}
                   onMouseLeave={() => setHoveredCard(null)}
                   className="bg-white rounded-xl p-4 transition-all relative border"
                   style={{
                     borderColor: "#EDE9FA",
-                    boxShadow: hoveredCard === post.id
+                    boxShadow: hoveredCard === project.id
                       ? "0 8px 24px rgba(124,58,237,0.12)"
                       : "0 2px 12px rgba(124,58,237,0.06)",
-                    borderLeft: "3px solid #7C3AED",
+                    borderLeft: `3px solid ${tagColor}`,
                   }}
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <div
-                      className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold border-2"
-                      style={{ background: gradient, borderColor: "rgba(124,58,237,0.4)" }}
-                    >
-                      {post.user.name[0].toUpperCase()}
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold border-2"
+                      style={{ background: gradient, borderColor: "rgba(124,58,237,0.4)" }}>
+                      {project.user.name[0].toUpperCase()}
                     </div>
-                    <p className="text-xs" style={{ color: "#6B6880" }}>@{post.user.username}</p>
+                    <p className="text-xs" style={{ color: "#6B6880" }}>@{project.user.username}</p>
                   </div>
 
-                  <button
-                    onClick={() => navigate(`/project/${post.id}`)}
-                    className="text-left w-full group"
-                  >
+                  <button onClick={() => navigate(`/project/${project.id}`)} className="text-left w-full group">
                     <h3 className="text-xl font-bold mb-2 flex items-center gap-2 group-hover:underline" style={{ color: "#7C3AED" }}>
-                      {post.user.name}
+                      {project.title}
                       <ExternalLink size={18} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                     </h3>
                   </button>
 
-                  <p className="mb-3 leading-relaxed text-sm" style={{ color: "#1A1A2E" }}>{post.content}</p>
+                  <p className="mb-3 leading-relaxed text-sm" style={{ color: "#1A1A2E" }}>{project.description}</p>
+
+                  {project.tags?.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-3">
+                      {project.tags.map((tag) => {
+                        const tagColors = getTechTagColors(tag);
+                        return (
+                          <span key={tag} className="px-2.5 py-0.5 rounded-full text-xs font-medium"
+                            style={{ backgroundColor: tagColors.backgroundColor, color: tagColors.color }}>
+                            {tag}
+                          </span>
+                        );
+                      })}
+                    </div>
+                  )}
 
                   <div className="flex items-center justify-between pt-3 border-t" style={{ borderColor: "#EDE9FA" }}>
                     <div className="flex items-center gap-4" style={{ color: "#6B6880" }}>
@@ -216,9 +227,7 @@ export default function Feed() {
                         <span className="text-xs">0</span>
                       </div>
                     </div>
-                    <div className="flex gap-0.5">
-                      <StarRating initialRating={0} />
-                    </div>
+                    <StarRating initialRating={0} />
                   </div>
                 </div>
               );
@@ -242,7 +251,7 @@ export default function Feed() {
                         <p className="text-xs" style={{ color: "#9B8EC4" }}>{dev.username}</p>
                       </div>
                     </div>
-                    <button className="px-3 rounded-full text-xs font-medium border transition-all hover:bg-opacity-10"
+                    <button className="px-3 rounded-full text-xs font-medium border transition-all"
                       style={{ height: "28px", borderColor: "#7C3AED", color: "#7C3AED", backgroundColor: "transparent" }}>
                       Seguir
                     </button>
