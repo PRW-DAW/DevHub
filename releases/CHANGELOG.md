@@ -8,18 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- `projects` table migration with `title`, `description`, `tags`, `project_link`, `github_link`, `cover_image` and `status` fields.
-- `Project` Eloquent model with `tags` cast to array and `user` relationship.
-- `ProjectController` with full CRUD API (`index`, `store`, `show`, `update`, `destroy`).
-- `ProjectDetail.tsx` now fetches real project data from the API by id.
-- Feed now fetches and displays real projects instead of posts.
-- Publishing a project from `AddProjectModal` now sends all fields to the API.
-- Search bar in Feed filters by title, description, username and tags.
+- ...
 
 ### Changed
 
-- `Feed.tsx` migrated from posts to projects API.
-- `routes/api.php` updated with `apiResource` route for projects.
+- ...
 
 ### Deprecated
 
@@ -36,6 +29,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Security
 
 - ...
+
+## [0.7.0] - 2026/04/10
+
+### Added
+
+- `projects` table migration with `title`, `description`, `tags`, `project_link`, `github_link`, `cover_image` and `status` fields.
+- `Project` Eloquent model with `tags` cast to array and `user` relationship.
+- `ProjectController` with full CRUD API (`index`, `store`, `show`, `update`, `destroy`).
+- `ProjectDetail.tsx` now fetches real project data from the API by id.
+- Feed now fetches and displays real projects instead of posts.
+- Publishing a project from `AddProjectModal` now sends all fields to the API.
+- Search bar in Feed filters by title, description, username and tags.
+
+### Changed
+
+- `Feed.tsx` migrated from posts to projects API.
+- `routes/api.php` updated with `apiResource` route for projects.
 
 ## [0.6.0] - 2026/04/10
 
@@ -108,7 +118,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Initial files.
 
-[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.6.0...HEAD
+[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.7.0...HEAD
+[0.7.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.7.0
 [0.6.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.6.0
 [0.5.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.5.0
 [0.4.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.4.0
