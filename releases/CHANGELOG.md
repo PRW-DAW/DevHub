@@ -8,11 +8,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- ...
+- `PrivateRoute` component to protect authenticated routes, redirecting to login if no token is found in `localStorage`.
+- Feed now fetches real posts from the API using `useEffect`.
+- Publishing a project from the Feed now sends a POST request to the API.
+- Search bar filters over real API posts.
+- Loading, error and empty states in the Feed.
 
 ### Changed
 
-- ...
+- `routes.tsx` updated to wrap all routes except `/` with `PrivateRoute`.
+- `Feed.tsx` migrated from static mock data to real API data.
 
 ### Deprecated
 
