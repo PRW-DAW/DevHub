@@ -73,4 +73,14 @@ class ProjectController extends Controller
 
         return response()->json(['message' => 'Proyecto eliminado']);
     }
+
+    public function myProjects(Request $request)
+    {
+        $projects = $request->user()
+            ->projects()
+            ->latest()
+            ->paginate(10);
+    
+        return response()->json($projects);
+    }
 }

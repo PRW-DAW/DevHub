@@ -8,11 +8,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- ...
+- `GET /api/me/projects` endpoint to fetch only the authenticated user's projects.
+- `myProjects` method in `ProjectController`.
+- `Profile.tsx` now displays real user data (name, username, bio) from `localStorage`.
+- `Profile.tsx` now fetches and displays the user's real projects from the API.
+- Publishing a project from `Profile.tsx` now sends a POST request to the API.
+- Search bar in Profile filters over real projects.
+- Loading and empty states for the projects section in Profile.
 
 ### Changed
 
-- ...
+- `Profile.tsx` migrated from static mock data to real API data.
 
 ### Deprecated
 
