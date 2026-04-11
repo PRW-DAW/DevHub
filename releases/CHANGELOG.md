@@ -8,17 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- `GET /api/me/projects` endpoint to fetch only the authenticated user's projects.
-- `myProjects` method in `ProjectController`.
-- `Profile.tsx` now displays real user data (name, username, bio) from `localStorage`.
-- `Profile.tsx` now fetches and displays the user's real projects from the API.
-- Publishing a project from `Profile.tsx` now sends a POST request to the API.
-- Search bar in Profile filters over real projects.
-- Loading and empty states for the projects section in Profile.
+- ...
 
 ### Changed
 
-- `Profile.tsx` migrated from static mock data to real API data.
+- ...
 
 ### Deprecated
 
@@ -35,6 +29,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Security
 
 - ...
+
+## [0.8.0] - 2026/04/11
+
+### Added
+
+- `GET /api/me/projects` endpoint to fetch only the authenticated user's projects.
+- `myProjects` method in `ProjectController`.
+- `Profile.tsx` now displays real user data (name, username, bio) from `localStorage`.
+- `Profile.tsx` now fetches and displays the user's real projects from the API.
+- Publishing a project from `Profile.tsx` now sends a POST request to the API.
+- Search bar in Profile filters over real projects.
+- Loading and empty states for the projects section in Profile.
+
+### Changed
+
+- `Profile.tsx` migrated from static mock data to real API data.
 
 ## [0.7.0] - 2026/04/10
 
@@ -124,7 +134,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Initial files.
 
-[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.7.0...HEAD
+[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.8.0...HEAD
+[0.8.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.8.0
 [0.7.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.7.0
 [0.6.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.6.0
 [0.5.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.5.0
