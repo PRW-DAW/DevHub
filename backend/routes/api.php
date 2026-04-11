@@ -13,4 +13,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/posts',   [PostController::class, 'index']);
     Route::post('/posts',  [PostController::class, 'store']);
     Route::apiResource('/projects', ProjectController::class);
+    Route::get('/me/projects', [ProjectController::class, 'myProjects']);
 });
