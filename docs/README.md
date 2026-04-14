@@ -171,10 +171,19 @@ Luego ejecuta los siguientes comandos desde la raíz del proyecto:
 
 ```shell
 docker compose build
+```
+
+> [!NOTE]
+> 
+> Si desea crear la imagen localmente, descomente la sección `build` en `docker-compose.yaml` y ejecute `docker compose build`. De lo contrario, pase directamente al siguiente paso.
+
+Levanta los contenedores:
+
+```shell
 docker compose up -d
 ```
 
-El primer comando construirá las imágenes necesarias y el segundo levantará los servicios backend y frontend en segundo plano.
+El primer comando construirá las imágenes necesarias y el segundo levantará los servicios en segundo plano.
 
 Una vez que los contenedores estén activos, puedes acceder a los servicios desde tu navegador:
 
@@ -187,13 +196,65 @@ Para finalizar el entorno de desarrollo, ejecuta el siguiente comando desde la r
 docker compose down
 ```
 
-Este comando detiene los contenedores y elimina los datos locales del desarrollo.
+Este comando detiene los contenedores sin eliminar los datos locales del desarrollo.
 
 > [!NOTE]
 > 
 > La primera ejecución puede tardar algunos minutos debido a la instalación de dependencias.
 > 
 > Si realizas cambios en el código fuente, estos se reflejarán automáticamente gracias a los volúmenes configurados en Docker.
+
+### Build & Push (Ignorar esta subsección)
+
+```shell
+docker build \
+  -t ghcr.io/prw-daw/devhub-nginx:0 \
+  -t ghcr.io/prw-daw/devhub-nginx:0.9 \
+  -t ghcr.io/prw-daw/devhub-nginx:0.9.0 \
+  -t ghcr.io/prw-daw/devhub-nginx:latest \
+  -t fjrodafo/devhub-nginx:0.9.0 \
+  -t fjrodafo/devhub-nginx:latest \
+  ./nginx
+
+docker build \
+  -t ghcr.io/prw-daw/devhub-frontend:0 \
+  -t ghcr.io/prw-daw/devhub-frontend:0.9 \
+  -t ghcr.io/prw-daw/devhub-frontend:0.9.0 \
+  -t ghcr.io/prw-daw/devhub-frontend:latest \
+  -t fjrodafo/devhub-frontend:0.9.0 \
+  -t fjrodafo/devhub-frontend:latest \
+  ./frontend
+
+docker build \
+  -t ghcr.io/prw-daw/devhub-backend:0 \
+  -t ghcr.io/prw-daw/devhub-backend:0.9 \
+  -t ghcr.io/prw-daw/devhub-backend:0.9.0 \
+  -t ghcr.io/prw-daw/devhub-backend:latest \
+  -t fjrodafo/devhub-backend:0.9.0 \
+  -t fjrodafo/devhub-backend:latest \
+  ./backend
+
+docker push ghcr.io/prw-daw/devhub-nginx:0
+docker push ghcr.io/prw-daw/devhub-nginx:0.9
+docker push ghcr.io/prw-daw/devhub-nginx:0.9.0
+docker push ghcr.io/prw-daw/devhub-nginx:latest
+docker push fjrodafo/devhub-nginx:0.9.0
+docker push fjrodafo/devhub-nginx:latest
+
+docker push ghcr.io/prw-daw/devhub-frontend:0
+docker push ghcr.io/prw-daw/devhub-frontend:0.9
+docker push ghcr.io/prw-daw/devhub-frontend:0.9.0
+docker push ghcr.io/prw-daw/devhub-frontend:latest
+docker push fjrodafo/devhub-frontend:0.9.0
+docker push fjrodafo/devhub-frontend:latest
+
+docker push ghcr.io/prw-daw/devhub-backend:0
+docker push ghcr.io/prw-daw/devhub-backend:0.9
+docker push ghcr.io/prw-daw/devhub-backend:0.9.0
+docker push ghcr.io/prw-daw/devhub-backend:latest
+docker push fjrodafo/devhub-backend:0.9.0
+docker push fjrodafo/devhub-backend:latest
+```
 
 ## Recursos
 
