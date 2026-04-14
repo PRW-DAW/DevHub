@@ -15,14 +15,17 @@ services:
       - devhub_db_data:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER}"]
-      interval: 10s
-      timeout: 5s
-      retries: 10
-      start_period: 60s
+      interval: 30s
+      timeout: 30s
+      retries: 3
+      start_period: 15s
     restart: unless-stopped
   # Laravel
   backend:
-    build: ./backend
+    #build:
+    #  context: ./backend
+    #  dockerfile: Dockerfile
+    image: fjrodafo/devhub-backend:latest
     container_name: devhub_backend
     depends_on:
       db:
@@ -38,7 +41,10 @@ services:
     restart: unless-stopped
   # React + Vite
   frontend:
-    build: ./frontend
+    #build:
+    #  context: ./frontend
+    #  dockerfile: Dockerfile
+    image: fjrodafo/devhub-frontend:latest
     container_name: devhub_frontend
     depends_on:
       - backend
@@ -55,8 +61,11 @@ services:
     restart: unless-stopped
   # Nginx
   nginx:
-    image: nginx:alpine
-    container_name: devhub_nx
+    #build:
+    #  context: ./nginx
+    #  dockerfile: Dockerfile
+    image: fjrodafo/devhub-nginx:latest
+    container_name: devhub_nginx
     depends_on:
       - backend
       - frontend
