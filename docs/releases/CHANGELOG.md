@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- Docker flow improvement (`docker-compose.yaml` & `Dockerfile`).
+- ...
 
 ### Deprecated
 
@@ -29,6 +29,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Security
 
 - ...
+
+## [0.9.0] - 2026/04/14
+
+### Changed
+
+- Docker flow improvement (`docker-compose.yaml` & `Dockerfile`).
 
 ## [0.8.0] - 2026/04/11
 
@@ -134,7 +140,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Initial files.
 
-[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.8.0...HEAD
+[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.9.0...HEAD
+[0.9.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.9.0
 [0.8.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.8.0
 [0.7.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.7.0
 [0.6.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.6.0
