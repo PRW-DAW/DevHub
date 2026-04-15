@@ -8,11 +8,22 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- ...
+- `follows` table migration with `follower_id`, `following_id` and unique constraint.
+- `Follow` Eloquent model with `follower_id` and `following_id` fillable fields.
+- `followers` and `following` relationships in `User` model.
+- `UserController` with `index`, `follow` and `me` methods.
+- `GET /api/users` endpoint to list all users except the authenticated one, with `followers_count`, `projects_count` and `is_following` fields.
+- `POST /api/follow/{user}` endpoint to toggle follow/unfollow.
+- `GET /api/me` endpoint to fetch the authenticated user with follower, following and project counts.
+- `Connect.tsx` now fetches real users from the API with correct follow state on load.
+- Follow/unfollow button in `Connect.tsx` now calls the API and updates state in real time.
+- Search bar in `Connect.tsx` filters over real users.
+- `Profile.tsx` now shows real followers and following counts fetched from `/api/me`.
 
 ### Changed
 
-- ...
+- `Connect.tsx` migrated from static mock data to real API data.
+- `Profile.tsx` updated to fetch and display real follower and following counts.
 
 ### Deprecated
 
