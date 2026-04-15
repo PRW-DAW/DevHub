@@ -10,11 +10,19 @@ class UserController extends Controller
 {
     public function index(Request $request)
     {
-        $users = User::where('id', '!=', $request->user()->id)
+        $authUser = $request->user();
+        $followingIds = $authUser->following()->pluck('following_id')->toArray();
+
+        $users = User::where('id', '!=', $authUser->id)
             ->withCount('followers')
             ->withCount('projects')
             ->latest()
             ->paginate(20);
+
+        $users->getCollection()->transform(function ($user) use ($followingIds) {
+            $user->is_following = in_array($user->id, $followingIds);
+            return $user;
+        });
 
         return response()->json($users);
     }
@@ -42,5 +50,11 @@ class UserController extends Controller
         ]);
 
         return response()->json(['following' => true]);
+    }
+
+    public function me(Request $request)
+    {
+        $user = $request->user()->loadCount(['followers', 'following', 'projects']);
+        return response()->json($user);
     }
 }
