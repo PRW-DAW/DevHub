@@ -89,11 +89,13 @@ Abre una terminal en el directorio donde almacenas tus repositorios y clónalo c
 ```shell
 # HTTPS
 git clone https://github.com/PRW-DAW/DevHub.git
+cd DevHub/
 ```
 
 ```shell
 # SSH
 git clone git@github.com:PRW-DAW/DevHub.git
+cd DevHub/
 ```
 
 ## Configuración del proyecto
