@@ -8,11 +8,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- ...
+- `UserController` with `index`, `follow`, `me`, `show` and `showProjects` methods.
+- `GET /api/users/{user}` endpoint to fetch a public user profile with follow state.
+- `GET /api/users/{user}/projects` endpoint to fetch a user's projects.
+- `UserProfile.tsx` public profile page at `/user/:id` showing user data, stats, projects and follow button.
 
 ### Changed
 
-- ...
+- `routes.tsx` updated with `/user/:id` route protected by `PrivateRoute`.
 
 ### Deprecated
 
