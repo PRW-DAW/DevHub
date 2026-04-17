@@ -213,50 +213,50 @@ Este comando detiene los contenedores sin eliminar los datos locales del desarro
 ```shell
 docker build \
   -t ghcr.io/prw-daw/devhub-nginx:0 \
-  -t ghcr.io/prw-daw/devhub-nginx:0.9 \
-  -t ghcr.io/prw-daw/devhub-nginx:0.9.0 \
+  -t ghcr.io/prw-daw/devhub-nginx:0.10 \
+  -t ghcr.io/prw-daw/devhub-nginx:0.10.0 \
   -t ghcr.io/prw-daw/devhub-nginx:latest \
-  -t fjrodafo/devhub-nginx:0.9.0 \
+  -t fjrodafo/devhub-nginx:0.10.0 \
   -t fjrodafo/devhub-nginx:latest \
   ./nginx
 
 docker build \
   -t ghcr.io/prw-daw/devhub-frontend:0 \
-  -t ghcr.io/prw-daw/devhub-frontend:0.9 \
-  -t ghcr.io/prw-daw/devhub-frontend:0.9.0 \
+  -t ghcr.io/prw-daw/devhub-frontend:0.10 \
+  -t ghcr.io/prw-daw/devhub-frontend:0.10.0 \
   -t ghcr.io/prw-daw/devhub-frontend:latest \
-  -t fjrodafo/devhub-frontend:0.9.0 \
+  -t fjrodafo/devhub-frontend:0.10.0 \
   -t fjrodafo/devhub-frontend:latest \
   ./frontend
 
 docker build \
   -t ghcr.io/prw-daw/devhub-backend:0 \
-  -t ghcr.io/prw-daw/devhub-backend:0.9 \
-  -t ghcr.io/prw-daw/devhub-backend:0.9.0 \
+  -t ghcr.io/prw-daw/devhub-backend:0.10 \
+  -t ghcr.io/prw-daw/devhub-backend:0.10.0 \
   -t ghcr.io/prw-daw/devhub-backend:latest \
-  -t fjrodafo/devhub-backend:0.9.0 \
+  -t fjrodafo/devhub-backend:0.10.0 \
   -t fjrodafo/devhub-backend:latest \
   ./backend
 
 docker push ghcr.io/prw-daw/devhub-nginx:0
-docker push ghcr.io/prw-daw/devhub-nginx:0.9
-docker push ghcr.io/prw-daw/devhub-nginx:0.9.0
+docker push ghcr.io/prw-daw/devhub-nginx:0.10
+docker push ghcr.io/prw-daw/devhub-nginx:0.10.0
 docker push ghcr.io/prw-daw/devhub-nginx:latest
-docker push fjrodafo/devhub-nginx:0.9.0
+docker push fjrodafo/devhub-nginx:0.10.0
 docker push fjrodafo/devhub-nginx:latest
 
 docker push ghcr.io/prw-daw/devhub-frontend:0
-docker push ghcr.io/prw-daw/devhub-frontend:0.9
-docker push ghcr.io/prw-daw/devhub-frontend:0.9.0
+docker push ghcr.io/prw-daw/devhub-frontend:0.10
+docker push ghcr.io/prw-daw/devhub-frontend:0.10.0
 docker push ghcr.io/prw-daw/devhub-frontend:latest
-docker push fjrodafo/devhub-frontend:0.9.0
+docker push fjrodafo/devhub-frontend:0.10.0
 docker push fjrodafo/devhub-frontend:latest
 
 docker push ghcr.io/prw-daw/devhub-backend:0
-docker push ghcr.io/prw-daw/devhub-backend:0.9
-docker push ghcr.io/prw-daw/devhub-backend:0.9.0
+docker push ghcr.io/prw-daw/devhub-backend:0.10
+docker push ghcr.io/prw-daw/devhub-backend:0.10.0
 docker push ghcr.io/prw-daw/devhub-backend:latest
-docker push fjrodafo/devhub-backend:0.9.0
+docker push fjrodafo/devhub-backend:0.10.0
 docker push fjrodafo/devhub-backend:latest
 ```
 
