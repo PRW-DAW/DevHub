@@ -4,6 +4,7 @@ import Feed from "./pages/Feed";
 import Profile from "./pages/Profile";
 import Connect from "./pages/Connect";
 import Companies from "./pages/Companies";
+import UserProfile from "./pages/UserProfile";
 import ProjectDetail from "./pages/ProjectDetail";
 import PrivateRoute from "./components/PrivateRoute";
 
@@ -27,6 +28,10 @@ export const router = createBrowserRouter([
   {
     path: "/companies",
     element: <PrivateRoute><Companies /></PrivateRoute>,
+  },
+  {
+    path: "/user/:id",
+    element: <PrivateRoute><UserProfile /></PrivateRoute>,
   },
   {
     path: "/project/:id",

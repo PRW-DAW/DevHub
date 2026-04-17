@@ -57,4 +57,21 @@ class UserController extends Controller
         $user = $request->user()->loadCount(['followers', 'following', 'projects']);
         return response()->json($user);
     }
+
+    public function show(Request $request, User $user)
+    {
+        $authUser = $request->user();
+        $user->loadCount(['followers', 'following', 'projects']);
+        $user->is_following = $authUser->following()
+            ->where('following_id', $user->id)
+            ->exists();
+    
+        return response()->json($user);
+    }
+
+    public function showProjects(User $user)
+    {
+        $projects = $user->projects()->latest()->paginate(10);
+        return response()->json($projects);
+    }
 }
