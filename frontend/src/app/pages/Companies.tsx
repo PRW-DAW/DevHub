@@ -144,8 +144,12 @@ export default function Companies() {
 
   // Filter job offers based on selected category
   const filteredJobs = jobOffers.filter(job => {
-    if (selectedFilter === "Todos") return true;
-    return job.categories.includes(selectedFilter);
+    const matchesFilter = selectedFilter === "Todos" || job.categories.includes(selectedFilter);
+    const matchesSearch = searchQuery === "" ||
+      job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      job.company.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      job.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+    return matchesFilter && matchesSearch;
   });
 
   return (
@@ -230,6 +234,8 @@ export default function Companies() {
               />
               <input
                 type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Buscar ofertas, empresas, tecnologías..."
                 className="w-full pl-11 pr-4 py-3 rounded-lg border focus:outline-none focus:ring-2"
                 style={{ 
