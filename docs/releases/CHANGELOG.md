@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- Search bar and category filter in `Companies.tsx` now work together to filter job offers by title, company and tags.
+- ...
 
 ### Deprecated
 
@@ -29,6 +29,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Security
 
 - ...
+
+## [0.12.0] - 2026/04/22
+
+### Changed
+
+- Search bar and category filter in `Companies.tsx` now work together to filter job offers by title, company and tags.
 
 ## [0.11.0] - 2026/04/17
 
@@ -174,7 +180,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Initial files.
 
-[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.11.0...HEAD
+[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.12.0...HEAD
+[0.12.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.12.0
 [0.11.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.11.0
 [0.10.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.10.0
 [0.9.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.9.0
