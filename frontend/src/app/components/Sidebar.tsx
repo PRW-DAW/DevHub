@@ -16,9 +16,12 @@ export default function Sidebar() {
     <div className="w-64 bg-white shadow-sm flex flex-col border-r" style={{ borderColor: "#E5E0F5" }}>
       {/* Logo */}
       <div className="p-6 border-b" style={{ borderColor: "#EDE9FA" }}>
-        <h1 className="text-2xl font-bold" style={{ color: "#7C3AED" }}>
-          &lt; / &gt; DEVHUB
-        </h1>
+        <img
+          src="/de-lado.svg"
+          alt="DevHub Logo"
+          onClick={() => navigate("/feed")}
+          style={{ height: "36px", width: "auto", cursor: "pointer" }}
+        />
         <p className="text-xs" style={{ color: "#9B8EC4" }}>// v2.0.1</p>
       </div>
 

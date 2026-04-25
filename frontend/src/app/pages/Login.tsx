@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router";
-import { Code, Star, Users } from "lucide-react";
+import { Code, Star, Users, Eye, EyeOff } from "lucide-react";
 
 const API = "http://api.devhub.com";
 
@@ -12,6 +12,7 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -60,11 +61,32 @@ export default function Login() {
     <div className="min-h-screen flex" style={{ backgroundColor: "#F0EEFA" }}>
       {/* Left Side - sin cambios */}
       <div className="flex-1 flex items-center justify-center relative overflow-hidden bg-white">
-        <div className="relative z-10 max-w-2xl px-12">
-          <div className="mb-8">
-            <h1 className="text-5xl font-bold mb-2" style={{ color: "#7C3AED" }}>
-              &lt; / &gt; DEVHUB
-            </h1>
+        {/* Vídeo de fondo */}
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            zIndex: 0,
+            opacity: 0.35,
+          }}
+        >
+          <source src="/login.mp4" type="video/mp4" />
+        </video>
+        <div className="relative z-10 max-w-2xl px-12 py-16">
+          <div className="mb-10">
+            <img
+              src="/de-lado.svg"
+              alt="DevHub Logo"
+              style={{ height: "90px", width: "auto" }}
+            />
           </div>
           <h2 className="text-5xl font-bold mb-4" style={{ color: "#1A1A2E" }}>
             Tu portafolio{" "}
@@ -73,34 +95,34 @@ export default function Login() {
           <p className="text-xl mb-12" style={{ color: "#6B6880" }}>
             Conecta, comparte y crece con otros developers
           </p>
-          <div className="space-y-6 mb-16">
-            <div className="flex items-start gap-4">
-              <div className="p-2 rounded-lg" style={{ backgroundColor: "#EDE9FA" }}>
-                <Code style={{ color: "#7C3AED" }} size={24} />
+          <div className="space-y-6 mb-12">
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-lg" style={{ backgroundColor: "#EDE9FA" }}>
+                <Code style={{ color: "#7C3AED" }} size={28} />
               </div>
-              <p className="text-lg" style={{ color: "#1A1A2E" }}>Muestra tus proyectos</p>
+              <p className="text-lg font-medium" style={{ color: "#1A1A2E" }}>Muestra tus proyectos</p>
             </div>
-            <div className="flex items-start gap-4">
-              <div className="p-2 rounded-lg" style={{ backgroundColor: "#EDE9FA" }}>
-                <Star style={{ color: "#7C3AED" }} size={24} />
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-lg" style={{ backgroundColor: "#EDE9FA" }}>
+                <Star style={{ color: "#7C3AED" }} size={28} />
               </div>
-              <p className="text-lg" style={{ color: "#1A1A2E" }}>Recibe feedback valioso</p>
+              <p className="text-lg font-medium" style={{ color: "#1A1A2E" }}>Recibe feedback valioso</p>
             </div>
-            <div className="flex items-start gap-4">
-              <div className="p-2 rounded-lg" style={{ backgroundColor: "#EDE9FA" }}>
-                <Users style={{ color: "#7C3AED" }} size={24} />
+            <div className="flex items-center gap-4">
+              <div className="p-3 rounded-lg" style={{ backgroundColor: "#EDE9FA" }}>
+                <Users style={{ color: "#7C3AED" }} size={28} />
               </div>
-              <p className="text-lg" style={{ color: "#1A1A2E" }}>Conecta con la comunidad</p>
+              <p className="text-lg font-medium" style={{ color: "#1A1A2E" }}>Conecta con la comunidad</p>
             </div>
           </div>
           <div className="flex gap-4">
             <div className="px-5 py-3 rounded-full border flex items-center gap-2 font-medium"
               style={{ backgroundColor: "#EDE9FA", borderColor: "#DDD6FE", color: "#7C3AED" }}>
-              <span>⚡</span><span>Proyecto Beta</span>
+              <span>β</span><span>Proyecto Beta</span>
             </div>
             <div className="px-5 py-3 rounded-full border flex items-center gap-2 font-medium"
               style={{ backgroundColor: "#EDE9FA", borderColor: "#DDD6FE", color: "#7C3AED" }}>
-              <span>🎓</span><span>Hecho en DAW</span>
+              <span>#</span><span>Para Developers</span>
             </div>
             <div className="px-5 py-3 rounded-full border flex items-center gap-2 font-medium"
               style={{ backgroundColor: "#EDE9FA", borderColor: "#DDD6FE", color: "#7C3AED" }}>
@@ -178,10 +200,20 @@ export default function Login() {
               <label className="block text-sm font-semibold mb-2" style={{ color: "#1A1A2E" }}>
                 PASSWORD
               </label>
-              <input type="password" value={password} onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
-                className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent"
-                style={{ borderColor: "#EDE9FA" }} required />
+              <div className="relative">
+                <input type={showPassword ? "text" : "password"} value={password} onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 focus:border-transparent"
+                  style={{ borderColor: "#EDE9FA" }} required />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2"
+                  style={{ color: "#9B8EC4" }}
+                >
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                </button>
+              </div>
             </div>
 
             <button type="submit" disabled={loading}

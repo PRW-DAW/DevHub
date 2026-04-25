@@ -20,10 +20,10 @@ export default function AvatarDropdown() {
 
   const menuItems = [
     { label: "Mi Perfil", icon: User, action: () => navigate("/profile") },
-    { label: "Ajustes", icon: Settings, action: () => {} },
-    { label: "Personalización", icon: Palette, action: () => {} },
-    { label: "Términos de Uso", icon: FileText, action: () => {} },
-    { label: "Ayuda", icon: HelpCircle, action: () => {} },
+    { label: "Ajustes", icon: Settings, action: () => navigate("/settings") },
+    { label: "Personalización", icon: Palette, action: () => navigate("/customization") },
+    { label: "Términos de Uso", icon: FileText, action: () => navigate("/terms") },
+    { label: "Ayuda", icon: HelpCircle, action: () => navigate("/help") },
     { label: "Cerrar Sesión", icon: LogOut, action: () => navigate("/"), divider: true, isLogout: true },
   ];
 
