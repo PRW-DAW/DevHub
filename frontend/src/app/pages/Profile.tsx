@@ -165,6 +165,8 @@ export default function Profile() {
               <h2 className="text-2xl font-bold" style={{ color: "#1A1A2E" }}>Mi Perfil</h2>
               <p className="mt-1" style={{ color: "#9B8EC4" }}>// Gestiona tu perfil profesional</p>
             </div>
+            {/* Search Bar */}
+            {/*
             <div style={{ width: "220px" }}>
               <div className="relative">
                 <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2" style={{ color: "#9B8EC4" }} />
@@ -178,6 +180,7 @@ export default function Profile() {
                 />
               </div>
             </div>
+            */}
             <AvatarDropdown />
           </div>
         </div>
