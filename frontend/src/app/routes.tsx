@@ -6,6 +6,10 @@ import Connect from "./pages/Connect";
 import Companies from "./pages/Companies";
 import UserProfile from "./pages/UserProfile";
 import ProjectDetail from "./pages/ProjectDetail";
+import Terms from "./pages/Terms";
+import Help from "./pages/Help";
+import Customization from "./pages/Customization";
+import Settings from "./pages/Settings";
 import PrivateRoute from "./components/PrivateRoute";
 
 export const router = createBrowserRouter([
@@ -36,5 +40,21 @@ export const router = createBrowserRouter([
   {
     path: "/project/:id",
     element: <PrivateRoute><ProjectDetail /></PrivateRoute>,
+  },
+  {
+    path: "/terms",
+    element: <PrivateRoute><Terms /></PrivateRoute>,
+  },
+  {
+    path: "/help",
+    element: <PrivateRoute><Help /></PrivateRoute>,
+  },
+  {
+    path: "/customization",
+    element: <PrivateRoute><Customization /></PrivateRoute>,
+  },
+  {
+    path: "/settings",
+    element: <PrivateRoute><Settings /></PrivateRoute>,
   },
 ]);

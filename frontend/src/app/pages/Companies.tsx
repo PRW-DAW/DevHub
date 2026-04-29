@@ -175,8 +175,8 @@ export default function Companies() {
                 // Explora ofertas de trabajo
               </p>
             </div>
-            
             {/* Search Bar */}
+            {/*
             <div style={{ width: "220px" }}>
               <div className="relative">
                 <Search 
@@ -198,7 +198,7 @@ export default function Companies() {
                 />
               </div>
             </div>
-
+            */}
             <AvatarDropdown />
           </div>
         </div>
