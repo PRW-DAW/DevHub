@@ -1,7 +1,9 @@
-# DevHub
+# DevHub [![&#x25B2;Vercel](https://img.shields.io/badge/&#x25B2;Vercel-black?style=flat)](https://devhub-demo.vercel.app/)
 
 [![GitHub Pages](https://img.shields.io/badge/%20-FFFFFF?style=social&logo=githubpages&logoColor=black&logoSize=auto)](https://prw-daw.github.io/DevHub/)
 [![GitHub Stars](https://img.shields.io/github/stars/PRW-DAW/DevHub?style=social&logo=github&logoColor=black&label=Stars&labelColor=FFFFFF&color=FFFFFF)](https://github.com/PRW-DAW/DevHub/stargazers)
+
+[![PageSpeed Insights](https://img.shields.io/badge/PageSpeed_Insights-92-00cc66?style=flat&logo=pagespeedinsights&labelColor=white)](https://pagespeed.web.dev/analysis/https-devhub-demo-vercel-app/550rxubhmz?form_factor=desktop)
 
 [![Docker Container](https://img.shields.io/badge/Backend-2560FF?style=flat&logo=docker&logoColor=FFFFFF)](https://github.com/PRW-DAW/DevHub/pkgs/container/devhub-backend)
 [![Docker Pulls](https://img.shields.io/docker/pulls/fjrodafo/devhub-backend?style=flat&logo=docker&logoColor=FFFFFF&label=Pulls&labelColor=2560FF&color=2560FF)](https://hub.docker.com/r/fjrodafo/devhub-backend)
