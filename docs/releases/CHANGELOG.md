@@ -8,11 +8,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- ...
+- New logo added across the application.
+- Animated video background on the login page.
+- Password visibility toggle on the login page.
+- New pages accessible from the profile dropdown (`/settings`, `/customization`, etc.).
 
 ### Changed
 
-- ...
+- Login page bullet points updated for improved visual style.
+- Sidebar logo is now functional and navigates to the feed.
 
 ### Deprecated
 
