@@ -8,15 +8,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- New logo added across the application.
-- Animated video background on the login page.
-- Password visibility toggle on the login page.
-- New pages accessible from the profile dropdown (`/settings`, `/customization`, etc.).
+- ...
 
 ### Changed
 
-- Login page bullet points updated for improved visual style.
-- Sidebar logo is now functional and navigates to the feed.
+- ...
 
 ### Deprecated
 
@@ -33,6 +29,20 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Security
 
 - ...
+
+## [0.14.0] - 2026/05/03
+
+### Added
+
+- New logo added across the application.
+- Animated video background on the login page.
+- Password visibility toggle on the login page.
+- New pages accessible from the profile dropdown (`/settings`, `/customization`, etc.).
+
+### Changed
+
+- Login page bullet points updated for improved visual style.
+- Sidebar logo is now functional and navigates to the feed.
 
 ## [0.13.0] - 2026/04/29
 
@@ -207,7 +217,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Initial files.
 
-[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.13.0...HEAD
+[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.14.0...HEAD
+[0.14.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.14.0
 [0.13.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.13.0
 [0.12.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.12.0
 [0.11.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.11.0
