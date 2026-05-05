@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- ...
+- `AvatarDropdown.tsx` now displays the real user's name initial and username from `localStorage`.
 
 ### Deprecated
 
@@ -24,7 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
-- ...
+- Logout button in `AvatarDropdown.tsx` now calls `POST /api/logout` to invalidate the Sanctum token on the server before clearing `localStorage` and redirecting to `/`. Local logout still proceeds if the request fails.
 
 ### Security
 
