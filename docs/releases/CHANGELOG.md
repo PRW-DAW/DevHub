@@ -12,7 +12,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Changed
 
-- `AvatarDropdown.tsx` now displays the real user's name initial and username from `localStorage`.
+- ...
 
 ### Deprecated
 
@@ -24,11 +24,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
-- Logout button in `AvatarDropdown.tsx` now calls `POST /api/logout` to invalidate the Sanctum token on the server before clearing `localStorage` and redirecting to `/`. Local logout still proceeds if the request fails.
+- ...
 
 ### Security
 
 - ...
+
+## [0.14.1] - 2026/05/05
+
+### Changed
+
+- `AvatarDropdown.tsx` now displays the real user's name initial and username from `localStorage`.
+
+### Fixed
+
+- Logout button in `AvatarDropdown.tsx` now calls `POST /api/logout` to invalidate the Sanctum token on the server before clearing `localStorage` and redirecting to `/`. Local logout still proceeds if the request fails.
 
 ## [0.14.0] - 2026/05/05
 
@@ -217,7 +227,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Initial files.
 
-[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.14.0...HEAD
+[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.14.1...HEAD
+[0.14.1]: https://github.com/PRW-DAW/DevHub/releases/tag/0.14.1
 [0.14.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.14.0
 [0.13.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.13.0
 [0.12.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.12.0
