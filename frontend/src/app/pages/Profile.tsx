@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 import AvatarDropdown from "../components/AvatarDropdown";
 import StarRating from "../components/StarRating";
 import AddProjectModal from "../components/AddProjectModal";
-import { Users, Eye, MessageCircle, ExternalLink, Send, Search, Plus } from "lucide-react";
+import { Users, Eye, MessageCircle, ExternalLink, Send, Plus, Trash2 } from "lucide-react";
 import { getTechTagColors } from "../utils/techTagColors";
 
 interface Project {
@@ -148,6 +148,24 @@ export default function Profile() {
     }
   };
 
+  const handleDeleteProject = async (projectId: number) => {
+    if (!confirm("¿Seguro que quieres eliminar este proyecto?")) return;
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`http://api.devhub.com/api/projects/${projectId}`, {
+        method: "DELETE",
+        headers: {
+          "Accept": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+      if (!res.ok) throw new Error();
+      setProjects((prev) => prev.filter((p) => p.id !== projectId));
+    } catch {
+      console.error("Error al eliminar el proyecto");
+    }
+  };
+
   const filteredProjects = projects.filter((project) =>
     project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
     project.description.toLowerCase().includes(searchQuery.toLowerCase())
@@ -270,11 +288,26 @@ export default function Profile() {
                     borderColor: hoveredProject === project.id ? "#7C3AED" : "#EDE9FA",
                     boxShadow: hoveredProject === project.id ? "0 4px 16px rgba(124,58,237,0.12)" : "none"
                   }}>
-                  <button onClick={() => navigate(`/project/${project.id}`)}
-                    className="absolute top-6 right-6 transition-opacity"
-                    style={{ color: "#7C3AED", opacity: hoveredProject === project.id ? 1 : 0 }}>
-                    <ExternalLink size={18} />
-                  </button>
+
+                  {/* Botones top-right: eliminar y abrir */}
+                  <div className="absolute top-6 right-6 flex items-center gap-2">
+                    <button
+                      onClick={() => handleDeleteProject(project.id)}
+                      className="p-1.5 rounded-lg transition-all hover:bg-red-50"
+                      style={{ color: "#DC2626" }}
+                      title="Eliminar proyecto"
+                    >
+                      <Trash2 size={16} />
+                    </button>
+                    <button
+                      onClick={() => navigate(`/project/${project.id}`)}
+                      className="transition-opacity"
+                      style={{ color: "#7C3AED", opacity: hoveredProject === project.id ? 1 : 0 }}
+                    >
+                      <ExternalLink size={18} />
+                    </button>
+                  </div>
+
                   <button onClick={() => navigate(`/project/${project.id}`)} className="text-left w-full">
                     <h4 className="text-xl font-bold mb-3 hover:underline" style={{ color: "#7C3AED" }}>
                       {project.title}

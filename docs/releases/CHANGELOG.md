@@ -8,7 +8,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- ...
+- Delete button on project cards in `Feed.tsx`, visible only to the project owner, that calls `DELETE /api/projects/{id}` and removes the card from the UI without reloading.
+- Delete button on project cards in `Profile.tsx` that calls `DELETE /api/projects/{id}` and removes the card from the list without reloading.
 
 ### Changed
 

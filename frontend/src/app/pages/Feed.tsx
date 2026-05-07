@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { Eye, MessageCircle, ExternalLink, Search, Plus } from "lucide-react";
+import { Eye, MessageCircle, ExternalLink, Search, Plus, Trash2 } from "lucide-react";
 import Sidebar from "../components/Sidebar";
 import AvatarDropdown from "../components/AvatarDropdown";
 import StarRating from "../components/StarRating";
@@ -53,6 +53,7 @@ export default function Feed() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const authUser = JSON.parse(localStorage.getItem("user") || "{}");
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -106,6 +107,24 @@ export default function Feed() {
       setIsAddProjectModalOpen(false);
     } catch (err) {
       console.error(err);
+    }
+  };
+
+  const handleDeleteProject = async (projectId: number) => {
+    if (!confirm("¿Seguro que quieres eliminar este proyecto?")) return;
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`http://api.devhub.com/api/projects/${projectId}`, {
+        method: "DELETE",
+        headers: {
+          "Accept": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+      if (!res.ok) throw new Error();
+      setProjects((prev) => prev.filter((p) => p.id !== projectId));
+    } catch {
+      console.error("Error al eliminar el proyecto");
     }
   };
 
@@ -185,12 +204,28 @@ export default function Feed() {
                     borderLeft: `3px solid ${tagColor}`,
                   }}
                 >
-                  <div className="flex items-center gap-2 mb-2">
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold border-2"
-                      style={{ background: gradient, borderColor: "rgba(124,58,237,0.4)" }}>
-                      {project.user.name[0].toUpperCase()}
+                  <div className="flex items-center justify-between mb-2">
+                    <div className="flex items-center gap-2">
+                      <div className="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold border-2"
+                        style={{ background: gradient, borderColor: "rgba(124,58,237,0.4)" }}>
+                        {project.user.name[0].toUpperCase()}
+                      </div>
+                      <p className="text-xs" style={{ color: "#6B6880" }}>@{project.user.username}</p>
                     </div>
-                    <p className="text-xs" style={{ color: "#6B6880" }}>@{project.user.username}</p>
+
+                    {authUser.id === project.user_id && (
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDeleteProject(project.id);
+                        }}
+                        className="p-1.5 rounded-lg transition-all hover:bg-red-50"
+                        style={{ color: "#DC2626" }}
+                        title="Eliminar proyecto"
+                      >
+                        <Trash2 size={16} />
+                      </button>
+                    )}
                   </div>
 
                   <button onClick={() => navigate(`/project/${project.id}`)} className="text-left w-full group">
