@@ -21,7 +21,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Removed
 
-- ...
+- Static comments section removed from `Profile.tsx` as comments belong to projects, not user profiles.
+- Unused `Comment` interface, `comments` state, `newComment` state, `handleAddComment` function and related imports removed from `Profile.tsx`.
 
 ### Fixed
 
