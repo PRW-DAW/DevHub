@@ -14,6 +14,7 @@ interface Project {
   tags: string[];
   project_link: string;
   github_link: string | null;
+  comments_count: number;
 }
 
 interface AuthUser {
@@ -267,7 +268,7 @@ export default function Profile() {
                       </div>
                       <div className="flex items-center gap-2">
                         <MessageCircle size={18} />
-                        <span className="text-sm">0</span>
+                        <span className="text-sm">{project.comments_count}</span>
                       </div>
                     </div>
                     <StarRating initialRating={0} />
