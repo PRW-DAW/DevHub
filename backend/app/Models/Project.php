@@ -26,6 +26,11 @@ class Project extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function views()
+    {
+        return $this->hasMany(ProjectView::class);
+    }
+
     public function comments()
     {
         return $this->hasMany(Comment::class);
