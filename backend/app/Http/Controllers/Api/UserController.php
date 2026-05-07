@@ -72,7 +72,7 @@ class UserController extends Controller
     public function showProjects(User $user)
     {
         $projects = $user->projects()
-            ->withCount('comments')
+            ->withCount(['views', 'comments'])
             ->latest()
             ->paginate(10);
 
