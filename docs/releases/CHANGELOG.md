@@ -22,11 +22,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Relative timestamps on comments using a `timeAgo` helper function.
 - `comments_count` field added to all project endpoints (`index`, `show`, `myProjects`, `showProjects`).
 - Comment count now displays in real time on project cards in `Feed.tsx`, `Profile.tsx` and `UserProfile.tsx`.
+- `project_views` table migration with `user_id`, `project_id` and unique constraint to prevent duplicate views.
+- `ProjectView` Eloquent model.
+- `views` relationship added to `Project` model.
+- `GET /api/projects/{id}` now registers a unique view per authenticated user using `firstOrCreate`.
+- `views_count` field added to all project endpoints (`index`, `show`, `myProjects`, `showProjects`).
+- View count now displays in real time on project cards in `Feed.tsx`, `Profile.tsx` and `UserProfile.tsx`.
 
 ### Changed
 
 - `ProjectDetail.tsx` migrated from static mock comments to real API data.
 - `Feed.tsx`, `Profile.tsx` and `UserProfile.tsx` updated to show real comment counts.
+- `ProjectController@show` updated to accept `Request` and register a unique project view on each visit.
+- `Feed.tsx`, `Profile.tsx` and `UserProfile.tsx` updated to show real view counts.
 
 ### Deprecated
 
