@@ -39,10 +39,13 @@ export default function AddProjectModal({ isOpen, onClose, onSubmit }: AddProjec
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    const finalTags = tagInput.trim()
+      ? [...tags, ...tagInput.split(",").map((t) => t.trim()).filter(Boolean)]
+      : tags;
     onSubmit({
       title,
       description,
-      tags,
+      tags: finalTags,
       projectLink,
       githubLink,
     });

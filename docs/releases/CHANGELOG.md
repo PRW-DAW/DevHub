@@ -24,7 +24,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Fixed
 
-- ...
+- Tech stack tags in `AddProjectModal.tsx` are now captured on form submit even if the user did not press Enter, by splitting the remaining input by commas.
 
 ### Security
 
