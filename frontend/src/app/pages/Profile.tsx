@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 import AvatarDropdown from "../components/AvatarDropdown";
 import StarRating from "../components/StarRating";
 import AddProjectModal from "../components/AddProjectModal";
-import { Users, Eye, MessageCircle, ExternalLink, Send, Plus, Trash2 } from "lucide-react";
+import { Users, Eye, MessageCircle, ExternalLink, Plus, Trash2 } from "lucide-react";
 import { getTechTagColors } from "../utils/techTagColors";
 
 interface Project {
@@ -14,14 +14,6 @@ interface Project {
   tags: string[];
   project_link: string;
   github_link: string | null;
-}
-
-interface Comment {
-  id: number;
-  username: string;
-  date: string;
-  text: string;
-  avatarGradient: string;
 }
 
 interface AuthUser {
@@ -35,7 +27,6 @@ interface AuthUser {
 export default function Profile() {
   const navigate = useNavigate();
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
-  const [newComment, setNewComment] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddProjectModalOpen, setIsAddProjectModalOpen] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
@@ -45,36 +36,11 @@ export default function Profile() {
 
   const authUser: AuthUser = JSON.parse(localStorage.getItem("user") || "{}");
 
-  const [comments, setComments] = useState<Comment[]>([
-    {
-      id: 1,
-      username: "@laura_dev",
-      date: "Hace 2 días",
-      text: "Increíble trabajo! El portfolio está genial, me encanta la integración con Three.js.",
-      avatarGradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    },
-    {
-      id: 2,
-      username: "@carlos_tech",
-      date: "Hace 1 semana",
-      text: "El dashboard de e-commerce es justo lo que estaba buscando como referencia.",
-      avatarGradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-    },
-    {
-      id: 3,
-      username: "@maria_frontend",
-      date: "Hace 2 semanas",
-      text: "Excelente developer! Tus proyectos demuestran mucha dedicación.",
-      avatarGradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-    },
-  ]);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
 
-        // Proyectos
         const resProjects = await fetch("http://api.devhub.com/api/me/projects", {
           headers: { "Accept": "application/json", "Authorization": `Bearer ${token}` },
         });
@@ -83,7 +49,6 @@ export default function Profile() {
           setProjects(dataProjects.data);
         }
 
-        // Contadores
         const resMe = await fetch("http://api.devhub.com/api/me", {
           headers: { "Accept": "application/json", "Authorization": `Bearer ${token}` },
         });
@@ -100,20 +65,6 @@ export default function Profile() {
     };
     fetchData();
   }, []);
-
-  const handleAddComment = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newComment.trim()) return;
-    const comment: Comment = {
-      id: comments.length + 1,
-      username: `@${authUser.username}`,
-      date: "Justo ahora",
-      text: newComment,
-      avatarGradient: "linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%)",
-    };
-    setComments([comment, ...comments]);
-    setNewComment("");
-  };
 
   const handleAddProject = async (projectData: {
     title: string;
@@ -183,22 +134,6 @@ export default function Profile() {
               <h2 className="text-2xl font-bold" style={{ color: "#1A1A2E" }}>Mi Perfil</h2>
               <p className="mt-1" style={{ color: "#9B8EC4" }}>// Gestiona tu perfil profesional</p>
             </div>
-            {/* Search Bar */}
-            {/*
-            <div style={{ width: "220px" }}>
-              <div className="relative">
-                <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2" style={{ color: "#9B8EC4" }} />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Buscar proyectos..."
-                  className="w-full pl-9 pr-3 py-2 rounded-full border focus:outline-none focus:ring-2 text-sm"
-                  style={{ backgroundColor: "#F0EEFA", borderColor: "#DDD6FE", color: "#1A1A2E" }}
-                />
-              </div>
-            </div>
-            */}
             <AvatarDropdown />
           </div>
         </div>
@@ -289,7 +224,6 @@ export default function Profile() {
                     boxShadow: hoveredProject === project.id ? "0 4px 16px rgba(124,58,237,0.12)" : "none"
                   }}>
 
-                  {/* Botones top-right: eliminar y abrir */}
                   <div className="absolute top-6 right-6 flex items-center gap-2">
                     <button
                       onClick={() => handleDeleteProject(project.id)}
@@ -347,50 +281,6 @@ export default function Profile() {
               onClose={() => setIsAddProjectModalOpen(false)}
               onSubmit={handleAddProject}
             />
-          </div>
-
-          {/* Comments — sin cambios */}
-          <div className="bg-white rounded-xl p-8 border" style={{
-            borderColor: "#EDE9FA",
-            boxShadow: "0 2px 12px rgba(124,58,237,0.06)"
-          }}>
-            <h3 className="text-2xl font-bold mb-6" style={{ color: "#1A1A2E" }}>Comentarios</h3>
-            <form onSubmit={handleAddComment} className="mb-8">
-              <div className="flex gap-3">
-                <input type="text" value={newComment} onChange={(e) => setNewComment(e.target.value)}
-                  placeholder="Escribe tu comentario..."
-                  className="flex-1 px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-                  style={{ borderColor: "#EDE9FA", backgroundColor: "#FAFAFA" }} />
-                <button type="submit"
-                  className="px-6 py-3 rounded-lg font-semibold text-white transition-all hover:opacity-90 flex items-center gap-2"
-                  style={{ backgroundColor: "#7C3AED" }}>
-                  <Send size={18} />
-                  Enviar
-                </button>
-              </div>
-            </form>
-            <div className="space-y-6">
-              {comments.map((comment, index) => (
-                <div key={comment.id}>
-                  <div className="flex gap-4">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0 border-2"
-                      style={{ background: comment.avatarGradient, borderColor: "rgba(124,58,237,0.4)" }}>
-                      {comment.username[1].toUpperCase()}
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <p className="font-semibold" style={{ color: "#7C3AED" }}>{comment.username}</p>
-                        <p className="text-sm" style={{ color: "#9B8EC4" }}>{comment.date}</p>
-                      </div>
-                      <p style={{ color: "#1A1A2E" }}>{comment.text}</p>
-                    </div>
-                  </div>
-                  {index < comments.length - 1 && (
-                    <div className="mt-6 border-t" style={{ borderColor: "#EDE9FA" }} />
-                  )}
-                </div>
-              ))}
-            </div>
           </div>
         </div>
       </div>
