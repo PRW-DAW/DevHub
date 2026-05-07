@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import Sidebar from "../components/Sidebar";
 import AvatarDropdown from "../components/AvatarDropdown";
 import StarRating from "../components/StarRating";
-import { ChevronRight, ExternalLink, Globe, Send } from "lucide-react";
+import { ChevronRight, ExternalLink, Globe, Send, Trash2 } from "lucide-react";
 
 interface Project {
   id: number;
@@ -23,10 +23,15 @@ interface Project {
 
 interface Comment {
   id: number;
-  username: string;
-  date: string;
-  text: string;
-  avatarGradient: string;
+  user_id: number;
+  body: string;
+  created_at: string;
+  user: {
+    id: number;
+    name: string;
+    username: string;
+    avatar: string | null;
+  };
 }
 
 const avatarGradients = [
@@ -36,75 +41,102 @@ const avatarGradients = [
   "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
 ];
 
+function timeAgo(dateStr: string): string {
+  const diff = Math.floor((Date.now() - new Date(dateStr).getTime()) / 1000);
+  if (diff < 60) return "Justo ahora";
+  if (diff < 3600) return `Hace ${Math.floor(diff / 60)} min`;
+  if (diff < 86400) return `Hace ${Math.floor(diff / 3600)} h`;
+  if (diff < 604800) return `Hace ${Math.floor(diff / 86400)} días`;
+  return new Date(dateStr).toLocaleDateString("es-ES");
+}
+
 export default function ProjectDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
   const [newComment, setNewComment] = useState("");
-  const [comments, setComments] = useState<Comment[]>([
-    {
-      id: 1,
-      username: "@pedro_dev",
-      date: "Hace 2 días",
-      text: "Excelente implementación del drag & drop! Me encanta cómo manejaste el estado. ¿Usaste alguna librería específica?",
-      avatarGradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-    },
-    {
-      id: 2,
-      username: "@ana_codes",
-      date: "Hace 1 día",
-      text: "Muy buen diseño UI. Los colores y la tipografía están perfectos. ¿Podrías compartir tu sistema de diseño?",
-      avatarGradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
-    },
-    {
-      id: 3,
-      username: "@carlos_frontend",
-      date: "Hace 5 horas",
-      text: "Me sirvió mucho para mi proyecto! Gracias por compartirlo.",
-      avatarGradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
-    },
-  ]);
-
+  const [comments, setComments] = useState<Comment[]>([]);
+  const [loadingComments, setLoadingComments] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
   const [project, setProject] = useState<Project | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
+  const authUser = JSON.parse(localStorage.getItem("user") || "{}");
+
   useEffect(() => {
-    const fetchProject = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch(`http://api.devhub.com/api/projects/${id}`, {
-          headers: {
-            "Accept": "application/json",
-            "Authorization": `Bearer ${token}`,
-          },
-        });
+        const headers = {
+          "Accept": "application/json",
+          "Authorization": `Bearer ${token}`,
+        };
 
-        if (!res.ok) throw new Error("Proyecto no encontrado");
+        const [resProject, resComments] = await Promise.all([
+          fetch(`http://api.devhub.com/api/projects/${id}`, { headers }),
+          fetch(`http://api.devhub.com/api/projects/${id}/comments`, { headers }),
+        ]);
 
-        const data = await res.json();
-        setProject(data);
+        if (!resProject.ok) throw new Error("Proyecto no encontrado");
+
+        const dataProject = await resProject.json();
+        const dataComments = await resComments.json();
+
+        setProject(dataProject);
+        setComments(dataComments);
       } catch (err) {
         setError("No se pudo cargar el proyecto.");
       } finally {
         setLoading(false);
+        setLoadingComments(false);
       }
     };
 
-    fetchProject();
+    fetchData();
   }, [id]);
 
-  const handleAddComment = (e: React.FormEvent) => {
+  const handleAddComment = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newComment.trim()) return;
-    const comment: Comment = {
-      id: comments.length + 1,
-      username: "@desarrollador",
-      date: "Justo ahora",
-      text: newComment,
-      avatarGradient: "linear-gradient(135deg, #7C3AED 0%, #A78BFA 100%)",
-    };
-    setComments([comment, ...comments]);
-    setNewComment("");
+    if (!newComment.trim() || submitting) return;
+    setSubmitting(true);
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`http://api.devhub.com/api/projects/${id}/comments`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ body: newComment }),
+      });
+      if (!res.ok) throw new Error();
+      const newCommentData = await res.json();
+      setComments((prev) => [newCommentData, ...prev]);
+      setNewComment("");
+    } catch {
+      console.error("Error al enviar comentario");
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  const handleDeleteComment = async (commentId: number) => {
+    if (!confirm("¿Seguro que quieres eliminar este comentario?")) return;
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch(`http://api.devhub.com/api/comments/${commentId}`, {
+        method: "DELETE",
+        headers: {
+          "Accept": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+      if (!res.ok) throw new Error();
+      setComments((prev) => prev.filter((c) => c.id !== commentId));
+    } catch {
+      console.error("Error al eliminar comentario");
+    }
   };
 
   if (loading) return (
@@ -213,47 +245,83 @@ export default function ProjectDetail() {
             </div>
           </div>
 
-          {/* Comments — sin cambios */}
+          {/* Comments */}
           <div className="bg-white rounded-xl p-8 border" style={{
             borderColor: "#EDE9FA",
             boxShadow: "0 2px 12px rgba(124,58,237,0.06)"
           }}>
-            <h3 className="text-2xl font-bold mb-6" style={{ color: "#1A1A2E" }}>Comentarios</h3>
+            <h3 className="text-2xl font-bold mb-6" style={{ color: "#1A1A2E" }}>
+              Comentarios {!loadingComments && `(${comments.length})`}
+            </h3>
+
             <form onSubmit={handleAddComment} className="mb-8">
               <div className="flex gap-3">
-                <input type="text" value={newComment} onChange={(e) => setNewComment(e.target.value)}
+                <input
+                  type="text"
+                  value={newComment}
+                  onChange={(e) => setNewComment(e.target.value)}
                   placeholder="Escribe tu comentario..."
                   className="flex-1 px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-                  style={{ borderColor: "#EDE9FA", backgroundColor: "#FAFAFA" }} />
-                <button type="submit"
+                  style={{ borderColor: "#EDE9FA", backgroundColor: "#FAFAFA" }}
+                />
+                <button
+                  type="submit"
+                  disabled={submitting}
                   className="px-6 py-3 rounded-lg font-semibold text-white transition-all hover:opacity-90 flex items-center gap-2"
-                  style={{ backgroundColor: "#7C3AED" }}>
+                  style={{ backgroundColor: "#7C3AED", opacity: submitting ? 0.7 : 1 }}
+                >
                   <Send size={18} />
                   Enviar
                 </button>
               </div>
             </form>
+
+            {loadingComments && (
+              <p className="text-center py-8" style={{ color: "#9B8EC4" }}>Cargando comentarios...</p>
+            )}
+
+            {!loadingComments && comments.length === 0 && (
+              <p className="text-center py-8" style={{ color: "#9B8EC4" }}>
+                No hay comentarios todavía. ¡Sé el primero!
+              </p>
+            )}
+
             <div className="space-y-6">
-              {comments.map((comment, index) => (
-                <div key={comment.id}>
-                  <div className="flex gap-4">
-                    <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0 border-2"
-                      style={{ background: comment.avatarGradient, borderColor: "rgba(124,58,237,0.4)" }}>
-                      {comment.username[1].toUpperCase()}
-                    </div>
-                    <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <p className="font-semibold" style={{ color: "#7C3AED" }}>{comment.username}</p>
-                        <p className="text-sm" style={{ color: "#9B8EC4" }}>{comment.date}</p>
+              {comments.map((comment, index) => {
+                const gradient = avatarGradients[comment.user.id % avatarGradients.length];
+                return (
+                  <div key={comment.id}>
+                    <div className="flex gap-4">
+                      <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0 border-2"
+                        style={{ background: gradient, borderColor: "rgba(124,58,237,0.4)" }}>
+                        {comment.user.name[0].toUpperCase()}
                       </div>
-                      <p style={{ color: "#1A1A2E" }}>{comment.text}</p>
+                      <div className="flex-1">
+                        <div className="flex items-center justify-between mb-2">
+                          <div className="flex items-center gap-3">
+                            <p className="font-semibold" style={{ color: "#7C3AED" }}>@{comment.user.username}</p>
+                            <p className="text-sm" style={{ color: "#9B8EC4" }}>{timeAgo(comment.created_at)}</p>
+                          </div>
+                          {authUser.id === comment.user_id && (
+                            <button
+                              onClick={() => handleDeleteComment(comment.id)}
+                              className="p-1.5 rounded-lg transition-all hover:bg-red-50"
+                              style={{ color: "#DC2626" }}
+                              title="Eliminar comentario"
+                            >
+                              <Trash2 size={14} />
+                            </button>
+                          )}
+                        </div>
+                        <p style={{ color: "#1A1A2E" }}>{comment.body}</p>
+                      </div>
                     </div>
+                    {index < comments.length - 1 && (
+                      <div className="mt-6 border-t" style={{ borderColor: "#EDE9FA" }} />
+                    )}
                   </div>
-                  {index < comments.length - 1 && (
-                    <div className="mt-6 border-t" style={{ borderColor: "#EDE9FA" }} />
-                  )}
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>
