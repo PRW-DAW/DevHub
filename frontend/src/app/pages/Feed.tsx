@@ -22,6 +22,7 @@ interface Project {
     username: string;
     avatar: string | null;
   };
+  views_count: number;
   comments_count: number;
 }
 
@@ -256,7 +257,7 @@ export default function Feed() {
                     <div className="flex items-center gap-4" style={{ color: "#6B6880" }}>
                       <div className="flex items-center gap-1.5">
                         <Eye size={16} />
-                        <span className="text-xs">0</span>
+                        <span className="text-xs">{project.views_count}</span>
                       </div>
                       <div className="flex items-center gap-1.5">
                         <MessageCircle size={16} />

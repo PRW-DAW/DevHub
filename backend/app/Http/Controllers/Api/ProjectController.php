@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\ProjectView;
 use Illuminate\Http\Request;
 
 class ProjectController extends Controller
@@ -14,7 +15,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::with('user')
-            ->withCount('comments')
+            ->withCount(['views', 'comments'])
             ->latest()
             ->paginate(10);
 
@@ -39,9 +40,16 @@ class ProjectController extends Controller
         return response()->json($project->load('user'), 201);
     }
 
-    public function show(Project $project)
+    public function show(Request $request, Project $project)
     {
-        return response()->json($project->load('user')->loadCount('comments'));
+        ProjectView::firstOrCreate([
+            'user_id'    => $request->user()->id,
+            'project_id' => $project->id,
+        ]);
+
+        return response()->json(
+            $project->load('user')->loadCount(['views', 'comments'])
+        );
     }
 
     public function update(Request $request, Project $project)
@@ -79,7 +87,7 @@ class ProjectController extends Controller
     {
         $projects = $request->user()
             ->projects()
-            ->withCount('comments')
+            ->withCount(['views', 'comments'])
             ->latest()
             ->paginate(10);
 

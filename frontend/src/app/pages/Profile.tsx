@@ -14,6 +14,7 @@ interface Project {
   tags: string[];
   project_link: string;
   github_link: string | null;
+  views_count: number;
   comments_count: number;
 }
 
@@ -264,7 +265,7 @@ export default function Profile() {
                     <div className="flex items-center gap-6" style={{ color: "#6B6880" }}>
                       <div className="flex items-center gap-2">
                         <Eye size={18} />
-                        <span className="text-sm">0</span>
+                        <span className="text-sm">{project.views_count}</span>
                       </div>
                       <div className="flex items-center gap-2">
                         <MessageCircle size={18} />
