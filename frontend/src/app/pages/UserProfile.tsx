@@ -25,6 +25,7 @@ interface Project {
   tags: string[];
   project_link: string;
   github_link: string | null;
+  comments_count: number;
 }
 
 const avatarGradients = [
@@ -236,7 +237,7 @@ export default function UserProfile() {
                   <div className="flex items-center justify-between pt-4 border-t" style={{ borderColor: "#EDE9FA" }}>
                     <div className="flex items-center gap-6" style={{ color: "#6B6880" }}>
                       <div className="flex items-center gap-2"><Eye size={18} /><span className="text-sm">0</span></div>
-                      <div className="flex items-center gap-2"><MessageCircle size={18} /><span className="text-sm">0</span></div>
+                      <div className="flex items-center gap-2"><MessageCircle size={18} /><span className="text-sm">{project.comments_count}</span></div>
                     </div>
                     <StarRating initialRating={0} />
                   </div>

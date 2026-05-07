@@ -5,6 +5,7 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\UserController;
+use App\Http\Controllers\Api\CommentController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',    [AuthController::class, 'login']);
@@ -20,4 +21,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [UserController::class, 'me']);
     Route::get('/users/{user}', [UserController::class, 'show']);
     Route::get('/users/{user}/projects', [UserController::class, 'showProjects']);
+    Route::get('/projects/{project}/comments', [CommentController::class, 'index']);
+    Route::post('/projects/{project}/comments', [CommentController::class, 'store']);
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
 });

@@ -10,10 +10,23 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Delete button on project cards in `Feed.tsx`, visible only to the project owner, that calls `DELETE /api/projects/{id}` and removes the card from the UI without reloading.
 - Delete button on project cards in `Profile.tsx` that calls `DELETE /api/projects/{id}` and removes the card from the list without reloading.
+- `comments` table migration with `user_id`, `project_id` and `body` fields.
+- `Comment` Eloquent model with `user` and `project` relationships.
+- `CommentController` with `index`, `store` and `destroy` methods.
+- `GET /api/projects/{project}/comments` endpoint to fetch all comments for a project.
+- `POST /api/projects/{project}/comments` endpoint to create a comment.
+- `DELETE /api/comments/{comment}` endpoint to delete a comment (owner only).
+- `ProjectDetail.tsx` now loads and displays real comments from the API.
+- New comments can be submitted without reloading the page.
+- Delete button on comments visible only to the comment author.
+- Relative timestamps on comments using a `timeAgo` helper function.
+- `comments_count` field added to all project endpoints (`index`, `show`, `myProjects`, `showProjects`).
+- Comment count now displays in real time on project cards in `Feed.tsx`, `Profile.tsx` and `UserProfile.tsx`.
 
 ### Changed
 
-- ...
+- `ProjectDetail.tsx` migrated from static mock comments to real API data.
+- `Feed.tsx`, `Profile.tsx` and `UserProfile.tsx` updated to show real comment counts.
 
 ### Deprecated
 
@@ -23,6 +36,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Static comments section removed from `Profile.tsx` as comments belong to projects, not user profiles.
 - Unused `Comment` interface, `comments` state, `newComment` state, `handleAddComment` function and related imports removed from `Profile.tsx`.
+- Static mock comments removed from `ProjectDetail.tsx`.
 
 ### Fixed
 

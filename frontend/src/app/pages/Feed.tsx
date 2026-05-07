@@ -22,6 +22,7 @@ interface Project {
     username: string;
     avatar: string | null;
   };
+  comments_count: number;
 }
 
 const featuredDevelopers = [
@@ -259,7 +260,7 @@ export default function Feed() {
                       </div>
                       <div className="flex items-center gap-1.5">
                         <MessageCircle size={16} />
-                        <span className="text-xs">0</span>
+                        <span className="text-xs">{project.comments_count}</span>
                       </div>
                     </div>
                     <StarRating initialRating={0} />
