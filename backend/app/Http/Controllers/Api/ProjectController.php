@@ -14,6 +14,7 @@ class ProjectController extends Controller
     public function index()
     {
         $projects = Project::with('user')
+            ->withCount('comments')
             ->latest()
             ->paginate(10);
 
@@ -40,7 +41,7 @@ class ProjectController extends Controller
 
     public function show(Project $project)
     {
-        return response()->json($project->load('user'));
+        return response()->json($project->load('user')->loadCount('comments'));
     }
 
     public function update(Request $request, Project $project)
@@ -78,9 +79,10 @@ class ProjectController extends Controller
     {
         $projects = $request->user()
             ->projects()
+            ->withCount('comments')
             ->latest()
             ->paginate(10);
-    
+
         return response()->json($projects);
     }
 }
