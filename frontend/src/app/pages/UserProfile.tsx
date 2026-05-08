@@ -164,7 +164,7 @@ export default function UserProfile() {
 
               <h2 className="text-3xl font-bold mb-1" style={{ color: "#1A1A2E" }}>{user.name}</h2>
               <p className="text-lg mb-4" style={{ color: "#9B8EC4" }}>// @{user.username}</p>
-              <p className="mb-6 max-w-2xl leading-relaxed" style={{ color: "#1A1A2E" }}>
+              <p className="mb-6 max-w-2xl leading-relaxed break-words" style={{ color: "#1A1A2E" }}>
                 {user.bio ?? "Sin bio todavía."}
               </p>
 
@@ -223,7 +223,7 @@ export default function UserProfile() {
                       {project.title}
                     </h4>
                   </button>
-                  <p className="mb-4 leading-relaxed" style={{ color: "#1A1A2E" }}>{project.description}</p>
+                  <p className="mb-4 leading-relaxed break-words" style={{ color: "#1A1A2E" }}>{project.description}</p>
                   <div className="flex gap-2 mb-4">
                     {project.tags?.map((tag) => {
                       const tagColors = getTechTagColors(tag);
