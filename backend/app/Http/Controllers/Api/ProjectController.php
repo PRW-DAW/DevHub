@@ -28,11 +28,12 @@ class ProjectController extends Controller
     public function store(Request $request)
     {
         $data = $request->validate([
-            'title'        => 'required|string|max:255',
-            'description'  => 'required|string',
-            'tags'         => 'nullable|array',
-            'project_link' => 'required|url',
-            'github_link'  => 'nullable|url',
+            'title'        => 'required|string|max:100',
+            'description'  => 'required|string|max:1000',
+            'tags'         => 'nullable|array|max:10',
+            'tags.*'       => 'string|max:10',
+            'project_link' => 'required|url|max:255',
+            'github_link'  => 'nullable|url|max:255',
         ]);
 
         $project = $request->user()->projects()->create($data);
