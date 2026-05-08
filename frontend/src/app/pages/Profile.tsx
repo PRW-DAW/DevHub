@@ -4,7 +4,7 @@ import Sidebar from "../components/Sidebar";
 import AvatarDropdown from "../components/AvatarDropdown";
 import StarRating from "../components/StarRating";
 import AddProjectModal from "../components/AddProjectModal";
-import { Users, Eye, MessageCircle, ExternalLink, Plus, Trash2 } from "lucide-react";
+import { Users, Eye, MessageCircle, ExternalLink, Plus, Trash2, X } from "lucide-react";
 import { getTechTagColors } from "../utils/techTagColors";
 
 interface Project {
@@ -31,12 +31,16 @@ export default function Profile() {
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState("");
   const [isAddProjectModalOpen, setIsAddProjectModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loadingProjects, setLoadingProjects] = useState(true);
   const [followersCount, setFollowersCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
-
-  const authUser: AuthUser = JSON.parse(localStorage.getItem("user") || "{}");
+  const [authUser, setAuthUser] = useState<AuthUser>(
+    JSON.parse(localStorage.getItem("user") || "{}")
+  );
+  const [bioInput, setBioInput] = useState(authUser.bio ?? "");
+  const [savingBio, setSavingBio] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -67,6 +71,32 @@ export default function Profile() {
     };
     fetchData();
   }, []);
+
+  const handleSaveBio = async () => {
+    setSavingBio(true);
+    try {
+      const token = localStorage.getItem("token");
+      const res = await fetch("http://api.devhub.com/api/me", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "Accept": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+        body: JSON.stringify({ bio: bioInput }),
+      });
+      if (!res.ok) throw new Error();
+      const updatedUser = await res.json();
+      const newUser = { ...authUser, bio: updatedUser.bio };
+      setAuthUser(newUser);
+      localStorage.setItem("user", JSON.stringify(newUser));
+      setIsEditModalOpen(false);
+    } catch {
+      console.error("Error al guardar la bio");
+    } finally {
+      setSavingBio(false);
+    }
+  };
 
   const handleAddProject = async (projectData: {
     title: string;
@@ -168,7 +198,12 @@ export default function Profile() {
                   <h2 className="text-3xl font-bold mb-1" style={{ color: "#1A1A2E" }}>{authUser.name}</h2>
                   <p className="text-lg" style={{ color: "#9B8EC4" }}>// @{authUser.username}</p>
                 </div>
-                <button className="px-5 py-2 rounded-full font-semibold transition-all hover:bg-opacity-10 border-2 text-sm"
+                <button
+                  onClick={() => {
+                    setBioInput(authUser.bio ?? "");
+                    setIsEditModalOpen(true);
+                  }}
+                  className="px-5 py-2 rounded-full font-semibold transition-all hover:bg-opacity-10 border-2 text-sm"
                   style={{ borderColor: "#7C3AED", color: "#7C3AED", backgroundColor: "transparent" }}>
                   Editar Perfil
                 </button>
@@ -286,6 +321,76 @@ export default function Profile() {
           </div>
         </div>
       </div>
+
+      {/* Edit Profile Modal */}
+      {isEditModalOpen && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ backgroundColor: "rgba(0, 0, 0, 0.5)" }}
+          onClick={() => setIsEditModalOpen(false)}
+        >
+          <div
+            className="bg-white rounded-2xl w-full max-w-lg border"
+            style={{
+              borderColor: "#EDE9FA",
+              boxShadow: "0 8px 32px rgba(124,58,237,0.15)"
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-6 border-b" style={{ borderColor: "#EDE9FA" }}>
+              <h2 className="text-xl font-bold" style={{ color: "#1A1A2E" }}>Editar Perfil</h2>
+              <button
+                onClick={() => setIsEditModalOpen(false)}
+                className="p-2 rounded-lg hover:bg-gray-100 transition-all"
+                style={{ color: "#6B6880" }}
+              >
+                <X size={20} />
+              </button>
+            </div>
+
+            {/* Modal Body */}
+            <div className="p-6 space-y-4">
+              <div>
+                <label className="block text-sm font-semibold mb-2" style={{ color: "#1A1A2E" }}>
+                  BIO
+                </label>
+                <textarea
+                  value={bioInput}
+                  onChange={(e) => setBioInput(e.target.value)}
+                  placeholder="Cuéntanos algo sobre ti..."
+                  rows={4}
+                  maxLength={500}
+                  className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 resize-none"
+                  style={{ borderColor: "#EDE9FA", backgroundColor: "#FAFAFA" }}
+                />
+                <p className="text-xs mt-1 text-right" style={{ color: "#9B8EC4" }}>
+                  {bioInput.length}/500
+                </p>
+              </div>
+            </div>
+
+            {/* Modal Footer */}
+            <div className="flex gap-3 p-6 pt-0">
+              <button
+                onClick={handleSaveBio}
+                disabled={savingBio}
+                className="flex-1 py-3 rounded-full font-semibold text-white transition-all hover:opacity-90"
+                style={{ backgroundColor: "#7C3AED", opacity: savingBio ? 0.7 : 1 }}
+              >
+                {savingBio ? "Guardando..." : "Guardar cambios"}
+              </button>
+              <button
+                onClick={() => setIsEditModalOpen(false)}
+                className="flex-1 py-3 rounded-full font-semibold transition-all border-2"
+                style={{ borderColor: "#DDD6FE", color: "#6B6880", backgroundColor: "white" }}
+              >
+                Cancelar
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
