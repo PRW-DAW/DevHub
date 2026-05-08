@@ -45,6 +45,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - "Editar Perfil" button in `Profile.tsx` now opens a modal with a textarea to edit the bio.
 - Bio changes are saved to the database and reflected immediately in the UI and `localStorage`.
 - Character counter (max 500) shown in the edit bio textarea.
+- Character counters on title (100), description (1000) and comment (500) inputs, turning red near the limit.
+- Tag input disabled and counter shown when 10 tag limit is reached in `AddProjectModal.tsx`.
 
 ### Changed
 
@@ -57,6 +59,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `Feed.tsx` sidebar migrated from static hardcoded technologies to real API data.
 - `Promise.all` in `Feed.tsx` now fetches projects, top developers and top technologies in parallel.
 - `authUser` in `Profile.tsx` migrated from a constant to a state so it can be updated after saving.
+- Backend validation in `ProjectController` updated: title `max:100`, description `max:1000`, tags `max:10`, each tag `max:30`, links `max:255`.
+- Backend validation in `CommentController` updated: body `max:500`.
+- `maxLength` attributes added to all text inputs in `AddProjectModal.tsx` and `ProjectDetail.tsx`.
+- Tag length capped at 30 characters on submit in `AddProjectModal.tsx`.
 
 ### Deprecated
 
@@ -73,6 +79,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 ### Fixed
 
 - Tech stack tags in `AddProjectModal.tsx` are now captured on form submit even if the user did not press Enter, by splitting the remaining input by commas.
+- Long unbreakable text no longer overflows its container in `Feed.tsx`, `Profile.tsx`, `ProjectDetail.tsx` and `UserProfile.tsx` — fixed with `break-words` on text elements and `min-w-0` on the flex container in `Feed.tsx`.
 
 ### Security
 
