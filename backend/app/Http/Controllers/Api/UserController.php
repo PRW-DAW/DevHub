@@ -78,4 +78,14 @@ class UserController extends Controller
 
         return response()->json($projects);
     }
+
+    public function topByFollowers()
+    {
+        $users = User::withCount('followers')
+            ->orderByDesc('followers_count')
+            ->limit(5)
+            ->get();
+
+        return response()->json($users);
+    }
 }
