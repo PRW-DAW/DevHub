@@ -26,11 +26,13 @@ interface Project {
   comments_count: number;
 }
 
-const featuredDevelopers = [
-  { name: "María G.", username: "@maria_codes", avatarGradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)" },
-  { name: "Carlos M.", username: "@carlos_dev", avatarGradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)" },
-  { name: "Laura S.", username: "@laura_backend", avatarGradient: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)" },
-];
+interface FeaturedDeveloper {
+  id: number;
+  name: string;
+  username: string;
+  followers_count: number;
+  avatarGradient: string;
+}
 
 const topTechnologies = [
   { name: "React", usage: 85 },
@@ -55,28 +57,48 @@ export default function Feed() {
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [featuredDevelopers, setFeaturedDevelopers] = useState<FeaturedDeveloper[]>([]);
+
   const authUser = JSON.parse(localStorage.getItem("user") || "{}");
 
   useEffect(() => {
-    const fetchProjects = async () => {
+    const fetchData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://api.devhub.com/api/projects", {
-          headers: {
-            "Accept": "application/json",
-            "Authorization": `Bearer ${token}`,
-          },
-        });
-        if (!res.ok) throw new Error("Error al cargar los proyectos");
-        const data = await res.json();
-        setProjects(data.data);
+        const headers = {
+          "Accept": "application/json",
+          "Authorization": `Bearer ${token}`,
+        };
+
+        const [resProjects, resTop] = await Promise.all([
+          fetch("http://api.devhub.com/api/projects", { headers }),
+          fetch("http://api.devhub.com/api/users/top", { headers }),
+        ]);
+
+        if (!resProjects.ok) throw new Error("Error al cargar los proyectos");
+
+        const dataProjects = await resProjects.json();
+        setProjects(dataProjects.data);
+
+        if (resTop.ok) {
+          const dataTop = await resTop.json();
+          setFeaturedDevelopers(
+            dataTop.map((user: { id: number; name: string; username: string; followers_count: number }, index: number) => ({
+              id: user.id,
+              name: user.name,
+              username: `@${user.username}`,
+              followers_count: user.followers_count,
+              avatarGradient: avatarGradients[index % avatarGradients.length],
+            }))
+          );
+        }
       } catch (err) {
         setError("No se pudieron cargar los proyectos.");
       } finally {
         setLoading(false);
       }
     };
-    fetchProjects();
+    fetchData();
   }, []);
 
   const handleAddProject = async (projectData: {
@@ -271,30 +293,36 @@ export default function Feed() {
             })}
           </div>
 
-          {/* Right Sidebar — sin cambios */}
+          {/* Right Sidebar */}
           <div className="w-72 space-y-6 flex-shrink-0">
             <div className="bg-white rounded-xl p-6 border" style={{ borderColor: "#EDE9FA", boxShadow: "0 2px 12px rgba(124,58,237,0.06)" }}>
               <h3 className="text-lg font-bold mb-4" style={{ color: "#1A1A2E" }}>Developers destacados</h3>
-              <div className="space-y-4">
-                {featuredDevelopers.map((dev) => (
-                  <div key={dev.username} className="flex items-center justify-between">
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold border-2"
-                        style={{ background: dev.avatarGradient, borderColor: "rgba(124,58,237,0.4)" }}>
-                        {dev.name[0]}
+              {featuredDevelopers.length === 0 ? (
+                <p className="text-sm text-center py-4" style={{ color: "#9B8EC4" }}>No hay usuarios todavía.</p>
+              ) : (
+                <div className="space-y-4">
+                  {featuredDevelopers.map((dev) => (
+                    <div key={dev.username} className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full flex items-center justify-center text-white text-sm font-bold border-2"
+                          style={{ background: dev.avatarGradient, borderColor: "rgba(124,58,237,0.4)" }}>
+                          {dev.name[0]}
+                        </div>
+                        <div>
+                          <p className="font-semibold text-sm" style={{ color: "#1A1A2E" }}>{dev.name}</p>
+                          <p className="text-xs" style={{ color: "#9B8EC4" }}>{dev.username}</p>
+                        </div>
                       </div>
-                      <div>
-                        <p className="font-semibold text-sm" style={{ color: "#1A1A2E" }}>{dev.name}</p>
-                        <p className="text-xs" style={{ color: "#9B8EC4" }}>{dev.username}</p>
-                      </div>
+                      <button
+                        onClick={() => navigate(`/user/${dev.id}`)}
+                        className="px-3 rounded-full text-xs font-medium border transition-all"
+                        style={{ height: "28px", borderColor: "#7C3AED", color: "#7C3AED", backgroundColor: "transparent" }}>
+                        Ver
+                      </button>
                     </div>
-                    <button className="px-3 rounded-full text-xs font-medium border transition-all"
-                      style={{ height: "28px", borderColor: "#7C3AED", color: "#7C3AED", backgroundColor: "transparent" }}>
-                      Seguir
-                    </button>
-                  </div>
-                ))}
-              </div>
+                  ))}
+                </div>
+              )}
             </div>
 
             <div className="bg-white rounded-xl p-6 border" style={{ borderColor: "#EDE9FA", boxShadow: "0 2px 12px rgba(124,58,237,0.06)" }}>
