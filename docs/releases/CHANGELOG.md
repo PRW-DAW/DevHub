@@ -28,6 +28,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `GET /api/projects/{id}` now registers a unique view per authenticated user using `firstOrCreate`.
 - `views_count` field added to all project endpoints (`index`, `show`, `myProjects`, `showProjects`).
 - View count now displays in real time on project cards in `Feed.tsx`, `Profile.tsx` and `UserProfile.tsx`.
+- `GET /api/users/top` endpoint returning up to 5 users ordered by follower count descending.
+- `topByFollowers` method in `UserController`.
+- `FeaturedDeveloper` interface in `Feed.tsx`.
+- "Developers destacados" sidebar in `Feed.tsx` now fetches and displays real users from the API ordered by followers.
+- "Ver" button on each developer card navigates to their public profile at `/user/{id}`.
+- Empty state shown when no users are available.
 
 ### Changed
 
@@ -35,6 +41,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `Feed.tsx`, `Profile.tsx` and `UserProfile.tsx` updated to show real comment counts.
 - `ProjectController@show` updated to accept `Request` and register a unique project view on each visit.
 - `Feed.tsx`, `Profile.tsx` and `UserProfile.tsx` updated to show real view counts.
+- `Feed.tsx` sidebar migrated from static hardcoded developers to real API data.
+- Both project and top developers fetches are now parallelized with `Promise.all` on mount.
 
 ### Deprecated
 
@@ -45,6 +53,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Static comments section removed from `Profile.tsx` as comments belong to projects, not user profiles.
 - Unused `Comment` interface, `comments` state, `newComment` state, `handleAddComment` function and related imports removed from `Profile.tsx`.
 - Static mock comments removed from `ProjectDetail.tsx`.
+- Static `featuredDevelopers` array removed from `Feed.tsx`.
 
 ### Fixed
 
