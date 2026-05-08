@@ -93,4 +93,36 @@ class ProjectController extends Controller
 
         return response()->json($projects);
     }
+
+    public function topTechnologies()
+    {
+        $projects = Project::whereNotNull('tags')->get(['tags']);
+
+        $tagCounts = [];
+        foreach ($projects as $project) {
+            foreach ($project->tags as $tag) {
+                $tag = trim($tag);
+                if ($tag) {
+                    $tagCounts[$tag] = ($tagCounts[$tag] ?? 0) + 1;
+                }
+            }
+        }
+
+        $total = array_sum($tagCounts);
+
+        if ($total === 0) {
+            return response()->json([]);
+        }
+
+        arsort($tagCounts);
+        $top5 = array_slice($tagCounts, 0, 5, true);
+
+        $result = array_map(fn($tag, $count) => [
+            'name'       => $tag,
+            'count'      => $count,
+            'percentage' => round(($count / $total) * 100, 1),
+        ], array_keys($top5), array_values($top5));
+
+        return response()->json(array_values($result));
+    }
 }
