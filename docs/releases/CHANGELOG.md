@@ -34,6 +34,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - "Developers destacados" sidebar in `Feed.tsx` now fetches and displays real users from the API ordered by followers.
 - "Ver" button on each developer card navigates to their public profile at `/user/{id}`.
 - Empty state shown when no users are available.
+- `GET /api/projects/top-technologies` endpoint returning up to 5 tags ordered by usage count descending, with `name`, `count` and `percentage` fields.
+- `topTechnologies` method in `ProjectController`.
+- `TopTechnology` interface in `Feed.tsx`.
+- "Top tecnologías" sidebar in `Feed.tsx` now fetches and displays real technology usage from the API.
+- Percentage bar reflects each technology's share of total tag usage across the platform.
+- Empty state shown when no technologies are available.
 
 ### Changed
 
@@ -43,6 +49,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - `Feed.tsx`, `Profile.tsx` and `UserProfile.tsx` updated to show real view counts.
 - `Feed.tsx` sidebar migrated from static hardcoded developers to real API data.
 - Both project and top developers fetches are now parallelized with `Promise.all` on mount.
+- `Feed.tsx` sidebar migrated from static hardcoded technologies to real API data.
+- `Promise.all` in `Feed.tsx` now fetches projects, top developers and top technologies in parallel.
 
 ### Deprecated
 
@@ -54,6 +62,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Unused `Comment` interface, `comments` state, `newComment` state, `handleAddComment` function and related imports removed from `Profile.tsx`.
 - Static mock comments removed from `ProjectDetail.tsx`.
 - Static `featuredDevelopers` array removed from `Feed.tsx`.
+- Static `topTechnologies` array removed from `Feed.tsx`.
 
 ### Fixed
 
