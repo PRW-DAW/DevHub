@@ -34,13 +34,11 @@ interface FeaturedDeveloper {
   avatarGradient: string;
 }
 
-const topTechnologies = [
-  { name: "React", usage: 85 },
-  { name: "TypeScript", usage: 72 },
-  { name: "Node.js", usage: 68 },
-  { name: "Python", usage: 54 },
-  { name: "Vue", usage: 48 },
-];
+interface TopTechnology {
+  name: string;
+  count: number;
+  percentage: number;
+}
 
 const avatarGradients = [
   "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
@@ -58,6 +56,7 @@ export default function Feed() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [featuredDevelopers, setFeaturedDevelopers] = useState<FeaturedDeveloper[]>([]);
+  const [topTechnologies, setTopTechnologies] = useState<TopTechnology[]>([]);
 
   const authUser = JSON.parse(localStorage.getItem("user") || "{}");
 
@@ -70,9 +69,10 @@ export default function Feed() {
           "Authorization": `Bearer ${token}`,
         };
 
-        const [resProjects, resTop] = await Promise.all([
+        const [resProjects, resTop, resTopTech] = await Promise.all([
           fetch("http://api.devhub.com/api/projects", { headers }),
           fetch("http://api.devhub.com/api/users/top", { headers }),
+          fetch("http://api.devhub.com/api/projects/top-technologies", { headers }),
         ]);
 
         if (!resProjects.ok) throw new Error("Error al cargar los proyectos");
@@ -91,6 +91,11 @@ export default function Feed() {
               avatarGradient: avatarGradients[index % avatarGradients.length],
             }))
           );
+        }
+
+        if (resTopTech.ok) {
+          const dataTopTech = await resTopTech.json();
+          setTopTechnologies(dataTopTech);
         }
       } catch (err) {
         setError("No se pudieron cargar los proyectos.");
@@ -326,23 +331,27 @@ export default function Feed() {
             </div>
 
             <div className="bg-white rounded-xl p-6 border" style={{ borderColor: "#EDE9FA", boxShadow: "0 2px 12px rgba(124,58,237,0.06)" }}>
-              <h3 className="text-lg font-bold mb-4" style={{ color: "#1A1A2E" }}>Top tecnologías esta semana</h3>
-              <div className="space-y-3">
-                {topTechnologies.map((tech) => {
-                  const techColors = getTechTagColors(tech.name);
-                  return (
-                    <div key={tech.name}>
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium" style={{ color: "#1A1A2E" }}>{tech.name}</span>
-                        <span className="text-xs font-semibold" style={{ color: techColors.color }}>{tech.usage}%</span>
+              <h3 className="text-lg font-bold mb-4" style={{ color: "#1A1A2E" }}>Top tecnologías</h3>
+              {topTechnologies.length === 0 ? (
+                <p className="text-sm text-center py-4" style={{ color: "#9B8EC4" }}>No hay tecnologías todavía.</p>
+              ) : (
+                <div className="space-y-3">
+                  {topTechnologies.map((tech) => {
+                    const techColors = getTechTagColors(tech.name);
+                    return (
+                      <div key={tech.name}>
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium" style={{ color: "#1A1A2E" }}>{tech.name}</span>
+                          <span className="text-xs font-semibold" style={{ color: techColors.color }}>{tech.percentage}%</span>
+                        </div>
+                        <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "#F3F4F6" }}>
+                          <div className="h-full rounded-full transition-all" style={{ width: `${tech.percentage}%`, backgroundColor: techColors.color }} />
+                        </div>
                       </div>
-                      <div className="w-full h-1.5 rounded-full overflow-hidden" style={{ backgroundColor: "#F3F4F6" }}>
-                        <div className="h-full rounded-full transition-all" style={{ width: `${tech.usage}%`, backgroundColor: techColors.color }} />
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
+                    );
+                  })}
+                </div>
+              )}
             </div>
           </div>
         </div>
