@@ -88,4 +88,18 @@ class UserController extends Controller
 
         return response()->json($users);
     }
+
+    public function update(Request $request)
+    {
+        $data = $request->validate([
+            'bio'      => 'nullable|string|max:500',
+            'name'     => 'sometimes|string|max:255',
+            'username' => 'sometimes|string|unique:users,username,' . $request->user()->id,
+        ]);
+
+        $user = $request->user();
+        $user->update($data);
+
+        return response()->json($user);
+    }
 }

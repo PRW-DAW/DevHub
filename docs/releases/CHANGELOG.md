@@ -40,6 +40,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - "Top tecnologías" sidebar in `Feed.tsx` now fetches and displays real technology usage from the API.
 - Percentage bar reflects each technology's share of total tag usage across the platform.
 - Empty state shown when no technologies are available.
+- `PUT /api/me` endpoint to update the authenticated user's `bio`, `name` and `username`.
+- `update` method in `UserController`.
+- "Editar Perfil" button in `Profile.tsx` now opens a modal with a textarea to edit the bio.
+- Bio changes are saved to the database and reflected immediately in the UI and `localStorage`.
+- Character counter (max 500) shown in the edit bio textarea.
 
 ### Changed
 
@@ -51,6 +56,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Both project and top developers fetches are now parallelized with `Promise.all` on mount.
 - `Feed.tsx` sidebar migrated from static hardcoded technologies to real API data.
 - `Promise.all` in `Feed.tsx` now fetches projects, top developers and top technologies in parallel.
+- `authUser` in `Profile.tsx` migrated from a constant to a state so it can be updated after saving.
 
 ### Deprecated
 
