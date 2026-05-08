@@ -22,7 +22,7 @@ class CommentController extends Controller
     public function store(Request $request, Project $project)
     {
         $data = $request->validate([
-            'body' => 'required|string|max:1000',
+            'body' => 'required|string|max:500',
         ]);
 
         $comment = $project->comments()->create([
