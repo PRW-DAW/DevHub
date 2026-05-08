@@ -26,8 +26,10 @@ export default function AddProjectModal({ isOpen, onClose, onSubmit }: AddProjec
   const handleAddTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter" && tagInput.trim()) {
       e.preventDefault();
-      if (!tags.includes(tagInput.trim())) {
-        setTags([...tags, tagInput.trim()]);
+      if (tags.length >= 10) return;
+      const trimmed = tagInput.trim().slice(0, 30);
+      if (!tags.includes(trimmed)) {
+        setTags([...tags, trimmed]);
       }
       setTagInput("");
     }
@@ -40,7 +42,7 @@ export default function AddProjectModal({ isOpen, onClose, onSubmit }: AddProjec
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     const finalTags = tagInput.trim()
-      ? [...tags, ...tagInput.split(",").map((t) => t.trim()).filter(Boolean)]
+      ? [...tags, ...tagInput.split(",").map((t) => t.trim().slice(0, 30)).filter(Boolean)].slice(0, 10)
       : tags;
     onSubmit({
       title,
@@ -49,7 +51,6 @@ export default function AddProjectModal({ isOpen, onClose, onSubmit }: AddProjec
       projectLink,
       githubLink,
     });
-    // Reset form
     setTitle("");
     setDescription("");
     setTags([]);
@@ -107,13 +108,14 @@ export default function AddProjectModal({ isOpen, onClose, onSubmit }: AddProjec
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               placeholder="Ej: Portfolio Personal v2"
+              maxLength={100}
               className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-              style={{ 
-                borderColor: "#EDE9FA",
-                backgroundColor: "#FAFAFA"
-              }}
+              style={{ borderColor: "#EDE9FA", backgroundColor: "#FAFAFA" }}
               required
             />
+            <p className="text-xs mt-1 text-right" style={{ color: title.length >= 90 ? "#DC2626" : "#9B8EC4" }}>
+              {title.length}/100
+            </p>
           </div>
 
           {/* Description */}
@@ -126,13 +128,14 @@ export default function AddProjectModal({ isOpen, onClose, onSubmit }: AddProjec
               onChange={(e) => setDescription(e.target.value)}
               placeholder="Describe tu proyecto, tecnologías usadas, características principales..."
               rows={4}
+              maxLength={1000}
               className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2 resize-none"
-              style={{ 
-                borderColor: "#EDE9FA",
-                backgroundColor: "#FAFAFA"
-              }}
+              style={{ borderColor: "#EDE9FA", backgroundColor: "#FAFAFA" }}
               required
             />
+            <p className="text-xs mt-1 text-right" style={{ color: description.length >= 900 ? "#DC2626" : "#9B8EC4" }}>
+              {description.length}/1000
+            </p>
           </div>
 
           {/* Tech Stack */}
@@ -145,23 +148,25 @@ export default function AddProjectModal({ isOpen, onClose, onSubmit }: AddProjec
               value={tagInput}
               onChange={(e) => setTagInput(e.target.value)}
               onKeyDown={handleAddTag}
-              placeholder="Escribe una tecnología y presiona Enter (ej: React, Node.js, TypeScript)"
+              placeholder={tags.length >= 10 ? "Límite de 10 etiquetas alcanzado" : "Escribe una tecnología y presiona Enter (ej: React, Node.js, TypeScript)"}
+              disabled={tags.length >= 10}
               className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-              style={{ 
+              style={{
                 borderColor: "#EDE9FA",
-                backgroundColor: "#FAFAFA"
+                backgroundColor: tags.length >= 10 ? "#F3F4F6" : "#FAFAFA",
+                cursor: tags.length >= 10 ? "not-allowed" : "text",
               }}
             />
+            <p className="text-xs mt-1" style={{ color: tags.length >= 10 ? "#DC2626" : "#9B8EC4" }}>
+              {tags.length}/10 etiquetas · máx. 10 caracteres por etiqueta
+            </p>
             {tags.length > 0 && (
               <div className="flex flex-wrap gap-2 mt-3">
                 {tags.map((tag) => (
                   <span
                     key={tag}
                     className="px-3 py-1.5 rounded-full text-sm font-medium flex items-center gap-2"
-                    style={{
-                      backgroundColor: "#EDE9FA",
-                      color: "#7C3AED",
-                    }}
+                    style={{ backgroundColor: "#EDE9FA", color: "#7C3AED" }}
                   >
                     {tag}
                     <button
@@ -187,11 +192,9 @@ export default function AddProjectModal({ isOpen, onClose, onSubmit }: AddProjec
               value={projectLink}
               onChange={(e) => setProjectLink(e.target.value)}
               placeholder="https://mi-proyecto.com"
+              maxLength={255}
               className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-              style={{ 
-                borderColor: "#EDE9FA",
-                backgroundColor: "#FAFAFA"
-              }}
+              style={{ borderColor: "#EDE9FA", backgroundColor: "#FAFAFA" }}
               required
             />
           </div>
@@ -206,11 +209,9 @@ export default function AddProjectModal({ isOpen, onClose, onSubmit }: AddProjec
               value={githubLink}
               onChange={(e) => setGithubLink(e.target.value)}
               placeholder="https://github.com/usuario/proyecto"
+              maxLength={255}
               className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-              style={{ 
-                borderColor: "#EDE9FA",
-                backgroundColor: "#FAFAFA"
-              }}
+              style={{ borderColor: "#EDE9FA", backgroundColor: "#FAFAFA" }}
             />
           </div>
 
@@ -227,11 +228,7 @@ export default function AddProjectModal({ isOpen, onClose, onSubmit }: AddProjec
               type="button"
               onClick={onClose}
               className="flex-1 py-3 rounded-full font-semibold transition-all border-2"
-              style={{ 
-                borderColor: "#DDD6FE",
-                color: "#6B6880",
-                backgroundColor: "white"
-              }}
+              style={{ borderColor: "#DDD6FE", color: "#6B6880", backgroundColor: "white" }}
             >
               Cancelar
             </button>
