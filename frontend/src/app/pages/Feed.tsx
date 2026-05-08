@@ -195,7 +195,7 @@ export default function Feed() {
 
         <div className="max-w-7xl mx-auto px-8 py-8 flex gap-8">
           {/* Feed Cards */}
-          <div className="flex-1 space-y-4">
+          <div className="flex-1 min-w-0 space-y-4">
             <button
               onClick={() => setIsAddProjectModalOpen(true)}
               className="w-full rounded-xl py-8 transition-all border-2 border-dashed hover:border-solid"
@@ -224,7 +224,7 @@ export default function Feed() {
                   key={project.id}
                   onMouseEnter={() => setHoveredCard(project.id)}
                   onMouseLeave={() => setHoveredCard(null)}
-                  className="bg-white rounded-xl p-4 transition-all relative border"
+                  className="bg-white rounded-xl p-4 transition-all relative border overflow-hidden"
                   style={{
                     borderColor: "#EDE9FA",
                     boxShadow: hoveredCard === project.id
@@ -264,7 +264,7 @@ export default function Feed() {
                     </h3>
                   </button>
 
-                  <p className="mb-3 leading-relaxed text-sm" style={{ color: "#1A1A2E" }}>{project.description}</p>
+                  <p className="mb-3 leading-relaxed text-sm break-words" style={{ color: "#1A1A2E" }}>{project.description}</p>
 
                   {project.tags?.length > 0 && (
                     <div className="flex flex-wrap gap-2 mb-3">

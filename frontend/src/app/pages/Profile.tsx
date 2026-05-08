@@ -208,7 +208,7 @@ export default function Profile() {
                   Editar Perfil
                 </button>
               </div>
-              <p className="mb-6 max-w-2xl leading-relaxed" style={{ color: "#1A1A2E" }}>
+              <p className="mb-6 max-w-2xl leading-relaxed break-words" style={{ color: "#1A1A2E" }}>
                 {authUser.bio ?? "Sin bio todavía."}
               </p>
               <div className="flex items-center gap-6 py-4 px-6 rounded-lg border" style={{
@@ -284,7 +284,7 @@ export default function Profile() {
                       {project.title}
                     </h4>
                   </button>
-                  <p className="mb-4 leading-relaxed" style={{ color: "#1A1A2E" }}>{project.description}</p>
+                  <p className="mb-4 leading-relaxed break-words" style={{ color: "#1A1A2E" }}>{project.description}</p>
                   <div className="flex gap-2 mb-4">
                     {project.tags?.map((tag) => {
                       const tagColors = getTechTagColors(tag);

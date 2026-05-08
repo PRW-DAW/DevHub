@@ -210,7 +210,7 @@ export default function ProjectDetail() {
 
             {/* Description */}
             <div className="mb-8">
-              <p className="text-lg leading-relaxed whitespace-pre-line" style={{ color: "#1A1A2E" }}>
+              <p className="text-lg leading-relaxed whitespace-pre-line break-words" style={{ color: "#1A1A2E" }}>
                 {project.description}
               </p>
             </div>
@@ -256,18 +256,24 @@ export default function ProjectDetail() {
 
             <form onSubmit={handleAddComment} className="mb-8">
               <div className="flex gap-3">
-                <input
-                  type="text"
-                  value={newComment}
-                  onChange={(e) => setNewComment(e.target.value)}
-                  placeholder="Escribe tu comentario..."
-                  className="flex-1 px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
-                  style={{ borderColor: "#EDE9FA", backgroundColor: "#FAFAFA" }}
-                />
+                <div className="flex-1">
+                  <input
+                    type="text"
+                    value={newComment}
+                    onChange={(e) => setNewComment(e.target.value)}
+                    placeholder="Escribe tu comentario..."
+                    maxLength={500}
+                    className="w-full px-4 py-3 border rounded-lg focus:outline-none focus:ring-2"
+                    style={{ borderColor: "#EDE9FA", backgroundColor: "#FAFAFA" }}
+                  />
+                  <p className="text-xs mt-1 text-right" style={{ color: newComment.length >= 450 ? "#DC2626" : "#9B8EC4" }}>
+                    {newComment.length}/500
+                  </p>
+                </div>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-6 py-3 rounded-lg font-semibold text-white transition-all hover:opacity-90 flex items-center gap-2"
+                  className="px-6 py-3 rounded-lg font-semibold text-white transition-all hover:opacity-90 flex items-center gap-2 self-start"
                   style={{ backgroundColor: "#7C3AED", opacity: submitting ? 0.7 : 1 }}
                 >
                   <Send size={18} />
@@ -313,7 +319,7 @@ export default function ProjectDetail() {
                             </button>
                           )}
                         </div>
-                        <p style={{ color: "#1A1A2E" }}>{comment.body}</p>
+                        <p className="break-words" style={{ color: "#1A1A2E" }}>{comment.body}</p>
                       </div>
                     </div>
                     {index < comments.length - 1 && (
