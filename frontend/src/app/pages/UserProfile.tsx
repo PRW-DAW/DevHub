@@ -153,7 +153,7 @@ export default function UserProfile() {
                 </div>
                 <button
                   onClick={toggleFollow}
-                  className="px-6 py-2 rounded-full font-semibold transition-all border-2 text-sm mb-2"
+                  className="px-5 py-2 rounded-full font-semibold transition-all hover:bg-opacity-10 border-2 text-sm"
                   style={user.is_following
                     ? { borderColor: "#D1D5DB", color: "#6B6880", backgroundColor: "white" }
                     : { borderColor: "#7C3AED", color: "white", backgroundColor: "#7C3AED" }
