@@ -20,11 +20,6 @@ const faqs = [
       "Sí, desde tu perfil puedes ver todos tus proyectos publicados. En cada tarjeta encontrarás las opciones para editar o eliminar el proyecto. Solo puedes modificar tus propios proyectos.",
   },
   {
-    question: "¿Qué es la fortaleza del perfil?",
-    answer:
-      "Es un indicador visual que muestra qué tan completo está tu perfil. Para mejorarla, añade una foto de perfil, una bio y publica al menos un proyecto. Actualmente es un indicador estático en fase beta.",
-  },
-  {
     question: "¿Cómo funciona el sistema de valoraciones?",
     answer:
       "Cada proyecto tiene un sistema de estrellas (1-5) que permite valorarlo. Esta funcionalidad está en desarrollo en la versión actual beta y las valoraciones aún no se persisten en la base de datos.",
@@ -51,7 +46,7 @@ const resources = [
     icon: BookOpen,
     title: "Documentación",
     description: "Consulta la memoria técnica del proyecto con toda la arquitectura y decisiones de diseño.",
-    link: "#",
+    link: "https://prw-daw.github.io/DevHub/",
     label: "Ver documentación",
   },
   {
@@ -175,7 +170,7 @@ export default function Help() {
           {/* Footer */}
           <div className="mt-8 text-center">
             <p className="text-xs" style={{ color: "#9B8EC4" }}>
-              // DevHub β — Proyecto de fin de ciclo DAW 2025/2026
+              // DevHub β — Proyecto final DAW 2026
             </p>
           </div>
         </div>
