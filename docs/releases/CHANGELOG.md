@@ -8,6 +8,32 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
+- ...
+
+### Changed
+
+- ...
+
+### Deprecated
+
+- ...
+
+### Removed
+
+- ...
+
+### Fixed
+
+- ...
+
+### Security
+
+- ...
+
+## [0.15.0] - 2026/05/09
+
+### Added
+
 - Delete button on project cards in `Feed.tsx`, visible only to the project owner, that calls `DELETE /api/projects/{id}` and removes the card from the UI without reloading.
 - Delete button on project cards in `Profile.tsx` that calls `DELETE /api/projects/{id}` and removes the card from the list without reloading.
 - `comments` table migration with `user_id`, `project_id` and `body` fields.
@@ -84,10 +110,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Profile banner in `Profile.tsx` now uses the user's gradient instead of a fixed purple gradient.
 - Profile avatar in `Profile.tsx` now uses the user's gradient instead of a fixed purple color.
 
-### Deprecated
-
-- ...
-
 ### Removed
 
 - Static comments section removed from `Profile.tsx` as comments belong to projects, not user profiles.
@@ -100,10 +122,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Tech stack tags in `AddProjectModal.tsx` are now captured on form submit even if the user did not press Enter, by splitting the remaining input by commas.
 - Long unbreakable text no longer overflows its container in `Feed.tsx`, `Profile.tsx`, `ProjectDetail.tsx` and `UserProfile.tsx` — fixed with `break-words` on text elements and `min-w-0` on the flex container in `Feed.tsx`.
-
-### Security
-
-- ...
 
 ## [0.14.1] - 2026/05/05
 
@@ -302,7 +320,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 - Initial files.
 
-[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.14.1...HEAD
+[unreleased]: https://github.com/PRW-DAW/DevHub/compare/0.15.0...HEAD
+[0.15.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.15.0
 [0.14.1]: https://github.com/PRW-DAW/DevHub/releases/tag/0.14.1
 [0.14.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.14.0
 [0.13.0]: https://github.com/PRW-DAW/DevHub/releases/tag/0.13.0
