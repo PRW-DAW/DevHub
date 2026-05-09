@@ -47,7 +47,6 @@ const avatarGradients = [
   "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
   "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
   "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
-  "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
 ];
 
 const companies: Company[] = [
@@ -77,7 +76,7 @@ export default function Connect() {
         });
         if (!res.ok) throw new Error();
         const data = await res.json();
-        const mapped: Person[] = data.data.map((user: ApiUser, index: number) => ({
+        const mapped: Person[] = data.data.map((user: ApiUser) => ({
           id: user.id,
           name: user.name,
           username: `@${user.username}`,
@@ -86,7 +85,7 @@ export default function Connect() {
           projects: user.projects_count,
           avatar: user.name[0].toUpperCase(),
           isFollowing: user.is_following,
-          avatarGradient: avatarGradients[index % avatarGradients.length],
+          avatarGradient: avatarGradients[user.id % avatarGradients.length],
           rating: 0,
           tags: [],
         }));
