@@ -65,7 +65,7 @@ export default function Customization() {
             <Palette style={{ color: "#7C3AED", flexShrink: 0 }} size={20} />
             <p className="text-sm" style={{ color: "#6B6880" }}>
               <span className="font-semibold" style={{ color: "#1A1A2E" }}>Versión beta — </span>
-              Las preferencias de personalización se guardarán en futuras versiones. Por ahora son solo una vista previa.
+              Los cambios en esta sección estarán disponibles en futuras versiones. Por ahora es una vista previa.
             </p>
           </div>
 
@@ -204,7 +204,7 @@ export default function Customization() {
           {/* Footer */}
           <div className="text-center pb-4">
             <p className="text-xs" style={{ color: "#9B8EC4" }}>
-              // DevHub β — Proyecto de fin de ciclo DAW 2025/2026
+              // DevHub β — Proyecto final DAW 2026
             </p>
           </div>
         </div>
