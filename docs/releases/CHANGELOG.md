@@ -47,6 +47,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Character counter (max 500) shown in the edit bio textarea.
 - Character counters on title (100), description (1000) and comment (500) inputs, turning red near the limit.
 - Tag input disabled and counter shown when 10 tag limit is reached in `AddProjectModal.tsx`.
+- `GET /api/projects?search=query` backend search across all projects by title, description, username and tags using `ilike`.
+- `GET /api/users?search=query` backend search across all users by name, username and bio using `ilike`.
+- "Ver más proyectos" button in `Feed.tsx` loads 10 more projects from the API without reloading the page.
+- "Ver más usuarios" button in `Connect.tsx` loads 12 more users from the API without reloading the page.
+- "Ver más proyectos" button in `Profile.tsx` loads 10 more of the user's own projects.
+- "Ver más proyectos" button in `UserProfile.tsx` loads 10 more projects from a public profile.
+- Debounced search (400ms) in `Feed.tsx` calls the backend and shows results across all projects.
+- Debounced search (400ms) in `Connect.tsx` calls the backend and shows results across all users.
+- Search bar in `Feed.tsx` resets to paginated feed when cleared.
+- Search bar in `Connect.tsx` resets to paginated user list when cleared.
 
 ### Changed
 
@@ -63,6 +73,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 - Backend validation in `CommentController` updated: body `max:500`.
 - `maxLength` attributes added to all text inputs in `AddProjectModal.tsx` and `ProjectDetail.tsx`.
 - Tag length capped at 30 characters on submit in `AddProjectModal.tsx`.
+- `ProjectController@index` updated to support `search` query parameter with pagination.
+- `UserController@index` updated to support `search` query parameter and removed exclusion of the authenticated user (all users now appear in Connect).
+- `UserController@index` now paginates by 12 users per page.
+- Avatar gradients unified to 6 gradients across all pages and always assigned by `user.id % 6` for consistency.
+- `Feed.tsx` now loads projects in pages of 10 with a "Ver más" button instead of loading all at once.
+- `Connect.tsx` now loads users in pages of 12 with a "Ver más" button instead of loading all at once.
+- `Profile.tsx` and `UserProfile.tsx` now load projects in pages of 10 with a "Ver más" button.
+- "Developers destacados" sidebar in `Feed.tsx` now assigns gradients by `user.id` instead of list index.
+- Profile banner in `Profile.tsx` now uses the user's gradient instead of a fixed purple gradient.
+- Profile avatar in `Profile.tsx` now uses the user's gradient instead of a fixed purple color.
 
 ### Deprecated
 
