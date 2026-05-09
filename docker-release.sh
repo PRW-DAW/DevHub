@@ -2,8 +2,8 @@
 set -euo pipefail
 
 MAJOR="0"
-MINOR="0.14"
-PATCH="0.14.1"
+MINOR="0.15"
+PATCH="0.15.0"
 
 build_and_push() {
     local name=$1
