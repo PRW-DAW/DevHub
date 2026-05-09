@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router";
 import Sidebar from "../components/Sidebar";
 import AvatarDropdown from "../components/AvatarDropdown";
 import StarRating from "../components/StarRating";
+import ProjectRating from "../components/ProjectRating";
 import { ChevronRight, ExternalLink, Globe, Send, Trash2 } from "lucide-react";
 
 interface Project {
@@ -13,6 +14,9 @@ interface Project {
   project_link: string;
   github_link: string | null;
   status: string;
+  ratings_avg_stars: number | null;
+  ratings_count: number;
+  user_rating: number | null;
   user: {
     id: number;
     name: string;
@@ -236,13 +240,17 @@ export default function ProjectDetail() {
 
             {/* Rating */}
             <div className="border-t pt-8" style={{ borderColor: "#EDE9FA" }}>
-              <div className="flex items-center gap-4">
-                <StarRating initialRating={4.5} size={28} />
-                <div>
-                  <p className="text-2xl font-bold" style={{ color: "#1A1A2E" }}>4.5</p>
-                  <p className="text-sm" style={{ color: "#6B6880" }}>0 valoraciones</p>
-                </div>
-              </div>
+              <p className="text-sm font-semibold mb-3" style={{ color: "#6B6880" }}>
+                {project.user_rating ? "Tu valoración:" : "Valora este proyecto:"}
+              </p>
+              <ProjectRating
+                projectId={project.id}
+                initialAvg={project.ratings_avg_stars}
+                initialCount={project.ratings_count}
+                initialUserRating={project.user_rating}
+                size={28}
+                showCount={true}
+              />
             </div>
           </div>
 
