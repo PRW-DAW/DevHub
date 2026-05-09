@@ -42,6 +42,9 @@ export default function Profile() {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loadingProjects, setLoadingProjects] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const [followersCount, setFollowersCount] = useState(0);
   const [followingCount, setFollowingCount] = useState(0);
   const [authUser, setAuthUser] = useState<AuthUser>(
@@ -61,6 +64,8 @@ export default function Profile() {
         if (resProjects.ok) {
           const dataProjects = await resProjects.json();
           setProjects(dataProjects.data);
+          setCurrentPage(1);
+          setHasMore(dataProjects.next_page_url !== null);
         }
 
         const resMe = await fetch("http://api.devhub.com/api/me", {
@@ -79,6 +84,26 @@ export default function Profile() {
     };
     fetchData();
   }, []);
+
+  const handleLoadMore = async () => {
+    setLoadingMore(true);
+    try {
+      const token = localStorage.getItem("token");
+      const nextPage = currentPage + 1;
+      const res = await fetch(`http://api.devhub.com/api/me/projects?page=${nextPage}`, {
+        headers: { "Accept": "application/json", "Authorization": `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      setProjects((prev) => [...prev, ...data.data]);
+      setCurrentPage(nextPage);
+      setHasMore(data.next_page_url !== null);
+    } catch {
+      console.error("Error al cargar más proyectos");
+    } finally {
+      setLoadingMore(false);
+    }
+  };
 
   const handleSaveBio = async () => {
     setSavingBio(true);
@@ -315,6 +340,24 @@ export default function Profile() {
                 </div>
               ))}
             </div>
+
+            {hasMore && (
+              <div className="mt-6 flex justify-center">
+                <button
+                  onClick={handleLoadMore}
+                  disabled={loadingMore}
+                  className="px-8 py-3 rounded-full font-semibold transition-all border-2"
+                  style={{
+                    borderColor: "#7C3AED",
+                    color: "#7C3AED",
+                    backgroundColor: "white",
+                    opacity: loadingMore ? 0.7 : 1,
+                  }}
+                >
+                  {loadingMore ? "Cargando..." : "Ver más proyectos"}
+                </button>
+              </div>
+            )}
 
             <AddProjectModal
               isOpen={isAddProjectModalOpen}
