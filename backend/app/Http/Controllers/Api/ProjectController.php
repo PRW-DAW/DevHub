@@ -14,8 +14,12 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
-        $query = Project::with('user')
+        $userId = $request->user()->id;
+
+        $query = Project::with(['user', 'ratings' => fn($q) => $q->where('user_id', $userId)])
             ->withCount(['views', 'comments'])
+            ->withAvg('ratings', 'stars')
+            ->withCount('ratings')
             ->latest();
 
         if ($request->has('search') && $request->search !== '') {
@@ -31,6 +35,12 @@ class ProjectController extends Controller
         }
 
         $projects = $query->paginate(10);
+
+        $projects->getCollection()->transform(function ($project) {
+            $project->user_rating = $project->ratings->first()?->stars ?? null;
+            unset($project->ratings);
+            return $project;
+        });
 
         return response()->json($projects);
     }
@@ -61,9 +71,14 @@ class ProjectController extends Controller
             'project_id' => $project->id,
         ]);
 
-        return response()->json(
-            $project->load('user')->loadCount(['views', 'comments'])
-        );
+        $project->load(['user', 'ratings' => fn($q) => $q->where('user_id', $request->user()->id)])
+            ->loadCount(['views', 'comments', 'ratings'])
+            ->loadAvg('ratings', 'stars');
+
+        $project->user_rating = $project->ratings->first()?->stars ?? null;
+        unset($project->ratings);
+
+        return response()->json($project);
     }
 
     public function update(Request $request, Project $project)
@@ -99,11 +114,21 @@ class ProjectController extends Controller
 
     public function myProjects(Request $request)
     {
+        $userId = $request->user()->id;
+
         $projects = $request->user()
             ->projects()
-            ->withCount(['views', 'comments'])
+            ->with(['ratings' => fn($q) => $q->where('user_id', $userId)])
+            ->withCount(['views', 'comments', 'ratings'])
+            ->withAvg('ratings', 'stars')
             ->latest()
             ->paginate(10);
+
+        $projects->getCollection()->transform(function ($project) {
+            $project->user_rating = $project->ratings->first()?->stars ?? null;
+            unset($project->ratings);
+            return $project;
+        });
 
         return response()->json($projects);
     }
