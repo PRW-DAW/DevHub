@@ -6,6 +6,7 @@ use App\Http\Controllers\Api\PostController;
 use App\Http\Controllers\Api\ProjectController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\CommentController;
+use App\Http\Controllers\Api\RatingController;
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login',    [AuthController::class, 'login']);
@@ -27,4 +28,5 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/projects/{project}/comments', [CommentController::class, 'store']);
     Route::delete('/comments/{comment}', [CommentController::class, 'destroy']);
     Route::put('/me', [UserController::class, 'update']);
+    Route::post('/projects/{project}/rate', [RatingController::class, 'rate']);
 });

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import Sidebar from "../components/Sidebar";
 import AvatarDropdown from "../components/AvatarDropdown";
 import StarRating from "../components/StarRating";
+import ProjectRating from "../components/ProjectRating";
 import AddProjectModal from "../components/AddProjectModal";
 import { Users, Eye, MessageCircle, ExternalLink, Plus, Trash2, X } from "lucide-react";
 import { getTechTagColors } from "../utils/techTagColors";
@@ -16,6 +17,9 @@ interface Project {
   github_link: string | null;
   views_count: number;
   comments_count: number;
+  ratings_avg_stars: number | null;
+  ratings_count: number;
+  user_rating: number | null;
 }
 
 interface AuthUser {
@@ -335,7 +339,12 @@ export default function Profile() {
                         <span className="text-sm">{project.comments_count}</span>
                       </div>
                     </div>
-                    <StarRating initialRating={0} />
+                    <ProjectRating
+                      projectId={project.id}
+                      initialAvg={project.ratings_avg_stars}
+                      initialCount={project.ratings_count}
+                      initialUserRating={project.user_rating}
+                    />
                   </div>
                 </div>
               ))}
