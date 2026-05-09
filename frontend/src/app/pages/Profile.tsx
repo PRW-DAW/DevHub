@@ -209,7 +209,7 @@ export default function Profile() {
                 </button>
               </div>
               <p className="mb-6 max-w-2xl leading-relaxed break-words" style={{ color: "#1A1A2E" }}>
-                {authUser.bio ?? "Sin bio todavía."}
+                {authUser.bio ?? "Developer"}
               </p>
               <div className="flex items-center gap-6 py-4 px-6 rounded-lg border" style={{
                 borderColor: "#EDE9FA", backgroundColor: "#FAFAFA"
@@ -353,7 +353,7 @@ export default function Profile() {
             <div className="p-6 space-y-4">
               <div>
                 <label className="block text-sm font-semibold mb-2" style={{ color: "#1A1A2E" }}>
-                  BIO
+                  Biografía
                 </label>
                 <textarea
                   value={bioInput}
