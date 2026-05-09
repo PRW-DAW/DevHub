@@ -108,7 +108,7 @@ export default function Terms() {
           {/* Footer */}
           <div className="mt-8 text-center">
             <p className="text-xs" style={{ color: "#9B8EC4" }}>
-              // DevHub β — Proyecto de fin de ciclo DAW 2025/2026
+              // DevHub β — Proyecto final DAW 2026
             </p>
           </div>
         </div>
