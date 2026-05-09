@@ -78,12 +78,22 @@ class UserController extends Controller
         return response()->json($user);
     }
 
-    public function showProjects(User $user)
+    public function showProjects(Request $request, User $user)
     {
+        $userId = $request->user()->id;
+
         $projects = $user->projects()
-            ->withCount(['views', 'comments'])
+            ->with(['ratings' => fn($q) => $q->where('user_id', $userId)])
+            ->withCount(['views', 'comments', 'ratings'])
+            ->withAvg('ratings', 'stars')
             ->latest()
             ->paginate(10);
+
+        $projects->getCollection()->transform(function ($project) {
+            $project->user_rating = $project->ratings->first()?->stars ?? null;
+            unset($project->ratings);
+            return $project;
+        });
 
         return response()->json($projects);
     }
