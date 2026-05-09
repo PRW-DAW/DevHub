@@ -48,11 +48,6 @@
 - Fields: name, username, bio, roles, stack
 - Save changes functionality
 
-### 10. "Completa tu perfil" — widget funcional
-- Rename "Fortaleza del perfil" to "Completa tu perfil"
-- Progress bar reflects completed fields
-- Clickable checklist items
-
-### 11. Homepage — reemplazar badges
+### 10. Homepage — reemplazar badges
 - Replace current pills with 3 value proposition cards
 - Icon + title + description for each card
