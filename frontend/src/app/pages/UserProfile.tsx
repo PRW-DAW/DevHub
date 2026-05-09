@@ -43,6 +43,9 @@ export default function UserProfile() {
   const [user, setUser] = useState<UserData | null>(null);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [hasMore, setHasMore] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const [error, setError] = useState("");
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
 
@@ -67,6 +70,8 @@ export default function UserProfile() {
 
         setUser(dataUser);
         setProjects(dataProjects.data);
+        setCurrentPage(1);
+        setHasMore(dataProjects.next_page_url !== null);
       } catch {
         setError("No se pudo cargar el perfil.");
       } finally {
@@ -75,6 +80,26 @@ export default function UserProfile() {
     };
     fetchData();
   }, [id]);
+
+  const handleLoadMore = async () => {
+    setLoadingMore(true);
+    try {
+      const token = localStorage.getItem("token");
+      const nextPage = currentPage + 1;
+      const res = await fetch(`http://api.devhub.com/api/users/${id}/projects?page=${nextPage}`, {
+        headers: { "Accept": "application/json", "Authorization": `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      setProjects((prev) => [...prev, ...data.data]);
+      setCurrentPage(nextPage);
+      setHasMore(data.next_page_url !== null);
+    } catch {
+      console.error("Error al cargar más proyectos");
+    } finally {
+      setLoadingMore(false);
+    }
+  };
 
   const toggleFollow = async () => {
     if (!user) return;
@@ -246,6 +271,24 @@ export default function UserProfile() {
                 </div>
               ))}
             </div>
+
+            {hasMore && (
+              <div className="mt-6 flex justify-center">
+                <button
+                  onClick={handleLoadMore}
+                  disabled={loadingMore}
+                  className="px-8 py-3 rounded-full font-semibold transition-all border-2"
+                  style={{
+                    borderColor: "#7C3AED",
+                    color: "#7C3AED",
+                    backgroundColor: "white",
+                    opacity: loadingMore ? 0.7 : 1,
+                  }}
+                >
+                  {loadingMore ? "Cargando..." : "Ver más proyectos"}
+                </button>
+              </div>
+            )}
           </div>
         </div>
       </div>
