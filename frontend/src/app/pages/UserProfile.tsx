@@ -165,7 +165,7 @@ export default function UserProfile() {
               <h2 className="text-3xl font-bold mb-1" style={{ color: "#1A1A2E" }}>{user.name}</h2>
               <p className="text-lg mb-4" style={{ color: "#9B8EC4" }}>// @{user.username}</p>
               <p className="mb-6 max-w-2xl leading-relaxed break-words" style={{ color: "#1A1A2E" }}>
-                {user.bio ?? "Sin bio todavía."}
+                {user.bio ?? "Developer"}
               </p>
 
               <div className="flex items-center gap-6 py-4 px-6 rounded-lg border" style={{
