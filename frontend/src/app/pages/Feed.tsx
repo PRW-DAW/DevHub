@@ -45,6 +45,7 @@ const avatarGradients = [
   "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
   "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
   "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+  "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
 ];
 
 export default function Feed() {
@@ -83,12 +84,12 @@ export default function Feed() {
         if (resTop.ok) {
           const dataTop = await resTop.json();
           setFeaturedDevelopers(
-            dataTop.map((user: { id: number; name: string; username: string; followers_count: number }, index: number) => ({
+            dataTop.map((user: { id: number; name: string; username: string; followers_count: number }) => ({
               id: user.id,
               name: user.name,
               username: `@${user.username}`,
               followers_count: user.followers_count,
-              avatarGradient: avatarGradients[index % avatarGradients.length],
+              avatarGradient: avatarGradients[user.id % avatarGradients.length],
             }))
           );
         }
@@ -216,7 +217,7 @@ export default function Feed() {
             )}
 
             {filteredProjects.map((project, index) => {
-              const gradient = avatarGradients[index % avatarGradients.length];
+              const gradient = avatarGradients[project.user.id % avatarGradients.length];
               const firstTag = project.tags?.[0];
               const tagColor = firstTag ? getTechTagColors(firstTag).color : "#7C3AED";
               return (
