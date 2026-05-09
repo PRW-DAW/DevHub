@@ -8,11 +8,21 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ### Added
 
-- ...
+- `ratings` table migration with `user_id`, `project_id` and `stars` fields and unique constraint.
+- `Rating` Eloquent model with `user` and `project` relationships.
+- `ratings` relationship added to `Project` model.
+- `POST /api/projects/{project}/rate` endpoint to create or update a project rating.
+- `RatingController` with `rate` method using `updateOrCreate`.
+- `ratings_avg_stars`, `ratings_count` and `user_rating` fields added to all project endpoints (`index`, `show`, `myProjects`, `showProjects`).
+- `ProjectRating.tsx` reusable component encapsulating rating logic, state and API call.
 
 ### Changed
 
-- ...
+- `StarRating.tsx` updated to support partial stars for displaying decimal averages.
+- `Feed.tsx`, `Profile.tsx`, `UserProfile.tsx` and `ProjectDetail.tsx` now use `ProjectRating` with real rating data.
+- `ProjectDetail.tsx` shows average rating and total count alongside interactive stars.
+- `UserController@showProjects` updated to include rating fields.
+- `ProjectController@index`, `show` and `myProjects` updated to include rating fields.
 
 ### Deprecated
 
