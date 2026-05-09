@@ -52,6 +52,7 @@ export default function Sidebar() {
       </div>
 
       {/* Profile Strength Widget */}
+      {/*
       <div className="p-4 border-t" style={{ borderColor: "#EDE9FA" }}>
         <div className="bg-white rounded-lg p-4 border" style={{ 
           borderColor: "#EDE9FA",
@@ -67,6 +68,7 @@ export default function Sidebar() {
           <p className="text-xs mt-2" style={{ color: "#9B8EC4" }}>// Completa tu perfil</p>
         </div>
       </div>
+      */}
     </div>
   );
 }
