@@ -13,11 +13,20 @@ class UserController extends Controller
         $authUser = $request->user();
         $followingIds = $authUser->following()->pluck('following_id')->toArray();
 
-        $users = User::where('id', '!=', $authUser->id)
-            ->withCount('followers')
+        $query = User::withCount('followers')
             ->withCount('projects')
-            ->latest()
-            ->paginate(20);
+            ->latest();
+
+        if ($request->has('search') && $request->search !== '') {
+            $search = $request->search;
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'ilike', "%{$search}%")
+                  ->orWhere('username', 'ilike', "%{$search}%")
+                  ->orWhere('bio', 'ilike', "%{$search}%");
+            });
+        }
+
+        $users = $query->paginate(12);
 
         $users->getCollection()->transform(function ($user) use ($followingIds) {
             $user->is_following = in_array($user->id, $followingIds);
