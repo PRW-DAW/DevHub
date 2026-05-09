@@ -55,7 +55,11 @@ export default function Feed() {
   const [isAddProjectModalOpen, setIsAddProjectModalOpen] = useState(false);
   const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [searching, setSearching] = useState(false);
   const [error, setError] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const [featuredDevelopers, setFeaturedDevelopers] = useState<FeaturedDeveloper[]>([]);
   const [topTechnologies, setTopTechnologies] = useState<TopTechnology[]>([]);
 
@@ -71,7 +75,7 @@ export default function Feed() {
         };
 
         const [resProjects, resTop, resTopTech] = await Promise.all([
-          fetch("http://api.devhub.com/api/projects", { headers }),
+          fetch("http://api.devhub.com/api/projects?page=1", { headers }),
           fetch("http://api.devhub.com/api/users/top", { headers }),
           fetch("http://api.devhub.com/api/projects/top-technologies", { headers }),
         ]);
@@ -80,6 +84,8 @@ export default function Feed() {
 
         const dataProjects = await resProjects.json();
         setProjects(dataProjects.data);
+        setCurrentPage(1);
+        setHasMore(dataProjects.next_page_url !== null);
 
         if (resTop.ok) {
           const dataTop = await resTop.json();
@@ -106,6 +112,56 @@ export default function Feed() {
     };
     fetchData();
   }, []);
+
+  useEffect(() => {
+    if (searchQuery === "") return;
+    const searchProjects = async () => {
+      setSearching(true);
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(`http://api.devhub.com/api/projects?search=${encodeURIComponent(searchQuery)}`, {
+          headers: {
+            "Accept": "application/json",
+            "Authorization": `Bearer ${token}`,
+          },
+        });
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        setProjects(data.data);
+        setHasMore(false);
+      } catch {
+        console.error("Error al buscar proyectos");
+      } finally {
+        setSearching(false);
+      }
+    };
+
+    const debounce = setTimeout(searchProjects, 400);
+    return () => clearTimeout(debounce);
+  }, [searchQuery]);
+
+  const handleLoadMore = async () => {
+    setLoadingMore(true);
+    try {
+      const token = localStorage.getItem("token");
+      const nextPage = currentPage + 1;
+      const res = await fetch(`http://api.devhub.com/api/projects?page=${nextPage}`, {
+        headers: {
+          "Accept": "application/json",
+          "Authorization": `Bearer ${token}`,
+        },
+      });
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      setProjects((prev) => [...prev, ...data.data]);
+      setCurrentPage(nextPage);
+      setHasMore(data.next_page_url !== null);
+    } catch {
+      console.error("Error al cargar más proyectos");
+    } finally {
+      setLoadingMore(false);
+    }
+  };
 
   const handleAddProject = async (projectData: {
     title: string;
@@ -158,12 +214,28 @@ export default function Feed() {
     }
   };
 
-  const filteredProjects = projects.filter((project) =>
-    project.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    project.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    project.user.username.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    project.tags?.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()))
-  );
+  const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    if (value === "") {
+      setLoading(true);
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch("http://api.devhub.com/api/projects?page=1", {
+          headers: { "Accept": "application/json", "Authorization": `Bearer ${token}` },
+        });
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        setProjects(data.data);
+        setCurrentPage(1);
+        setHasMore(data.next_page_url !== null);
+      } catch {
+        console.error("Error al recargar proyectos");
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   return (
     <div className="min-h-screen flex" style={{ backgroundColor: "#F0EEFA" }}>
@@ -183,7 +255,7 @@ export default function Feed() {
                 <input
                   type="text"
                   value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
+                  onChange={handleSearchChange}
                   placeholder="Buscar..."
                   className="w-full pl-9 pr-3 py-2 rounded-full border focus:outline-none focus:ring-2 text-sm"
                   style={{ backgroundColor: "#F0EEFA", borderColor: "#DDD6FE", color: "#1A1A2E" }}
@@ -210,13 +282,13 @@ export default function Feed() {
               </div>
             </button>
 
-            {loading && <div className="text-center py-12" style={{ color: "#9B8EC4" }}>Cargando proyectos...</div>}
+            {(loading || searching) && <div className="text-center py-12" style={{ color: "#9B8EC4" }}>{searching ? "Buscando..." : "Cargando proyectos..."}</div>}
             {error && <div className="text-center py-12" style={{ color: "#B91C1C" }}>{error}</div>}
-            {!loading && !error && filteredProjects.length === 0 && (
+            {!loading && !searching && !error && projects.length === 0 && (
               <div className="text-center py-12" style={{ color: "#9B8EC4" }}>No hay proyectos todavía.</div>
             )}
 
-            {filteredProjects.map((project, index) => {
+            {!loading && !searching && projects.map((project) => {
               const gradient = avatarGradients[project.user.id % avatarGradients.length];
               const firstTag = project.tags?.[0];
               const tagColor = firstTag ? getTechTagColors(firstTag).color : "#7C3AED";
@@ -297,6 +369,21 @@ export default function Feed() {
                 </div>
               );
             })}
+            {hasMore && !searching && (
+              <button
+                onClick={handleLoadMore}
+                disabled={loadingMore}
+                className="w-full py-4 rounded-xl font-semibold transition-all border-2"
+                style={{
+                  borderColor: "#7C3AED",
+                  color: "#7C3AED",
+                  backgroundColor: "white",
+                  opacity: loadingMore ? 0.7 : 1,
+                }}
+              >
+                {loadingMore ? "Cargando..." : "Ver más proyectos"}
+              </button>
+            )}
           </div>
 
           {/* Right Sidebar */}
