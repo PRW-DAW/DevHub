@@ -26,6 +26,14 @@ interface AuthUser {
   avatar: string | null;
 }
 
+const avatarGradients = [
+  "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+  "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+  "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+  "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+  "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+];
+
 export default function Profile() {
   const navigate = useNavigate();
   const [hoveredProject, setHoveredProject] = useState<number | null>(null);
@@ -178,18 +186,13 @@ export default function Profile() {
           }}>
             <div className="relative" style={{
               height: "70px",
-              background: "linear-gradient(135deg, #EDE9FA 0%, #DDD6FE 100%)",
-            }}>
-              <div className="absolute inset-0" style={{
-                opacity: 0.05,
-                backgroundImage: `url("data:image/svg+xml,%3Csvg width='80' height='80' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='20' font-family='monospace' font-size='14' fill='%237C3AED'%3E%7B%7D%3C/text%3E%3Ctext x='40' y='20' font-family='monospace' font-size='14' fill='%237C3AED'%3E%3C%3E%3C/text%3E%3Ctext x='10' y='50' font-family='monospace' font-size='14' fill='%237C3AED'%3E%3B%3C/text%3E%3Ctext x='40' y='50' font-family='monospace' font-size='14' fill='%237C3AED'%3E()%3C/text%3E%3Ctext x='10' y='70' font-family='monospace' font-size='14' fill='%237C3AED'%3E%5B%5D%3C/text%3E%3C/svg%3E")`,
-                backgroundRepeat: "repeat",
-              }} />
-            </div>
+              background: avatarGradients[authUser.id % avatarGradients.length],
+              opacity: 0.6,
+            }} />
             <div className="px-8 pb-6">
               <div className="relative -mt-14 mb-4">
                 <div className="w-28 h-28 rounded-full border-4 border-white flex items-center justify-center text-white text-4xl font-bold"
-                  style={{ backgroundColor: "#7C3AED", boxShadow: "0 4px 16px rgba(124, 58, 237, 0.3)" }}>
+                  style={{ background: avatarGradients[authUser.id % avatarGradients.length], boxShadow: "0 4px 16px rgba(124, 58, 237, 0.3)" }}>
                   {authUser.name?.[0]?.toUpperCase() ?? "?"}
                 </div>
               </div>
