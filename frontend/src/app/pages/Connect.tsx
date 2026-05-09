@@ -61,35 +61,40 @@ export default function Connect() {
   const [peopleList, setPeopleList] = useState<Person[]>([]);
   const [companiesList, setCompaniesList] = useState(companies);
   const [loading, setLoading] = useState(true);
+  const [loadingMore, setLoadingMore] = useState(false);
+  const [searching, setSearching] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(false);
   const navigate = useNavigate();
+
+  const mapUsers = (data: ApiUser[]): Person[] =>
+    data.map((user) => ({
+      id: user.id,
+      name: user.name,
+      username: `@${user.username}`,
+      role: user.bio ?? "Developer",
+      followers: user.followers_count,
+      projects: user.projects_count,
+      avatar: user.name[0].toUpperCase(),
+      isFollowing: user.is_following,
+      avatarGradient: avatarGradients[user.id % avatarGradients.length],
+      rating: 0,
+      tags: [],
+    }));
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await fetch("http://api.devhub.com/api/users", {
-          headers: {
-            "Accept": "application/json",
-            "Authorization": `Bearer ${token}`,
-          },
+        const res = await fetch("http://api.devhub.com/api/users?page=1", {
+          headers: { "Accept": "application/json", "Authorization": `Bearer ${token}` },
         });
         if (!res.ok) throw new Error();
         const data = await res.json();
-        const mapped: Person[] = data.data.map((user: ApiUser) => ({
-          id: user.id,
-          name: user.name,
-          username: `@${user.username}`,
-          role: user.bio ?? "Developer",
-          followers: user.followers_count,
-          projects: user.projects_count,
-          avatar: user.name[0].toUpperCase(),
-          isFollowing: user.is_following,
-          avatarGradient: avatarGradients[user.id % avatarGradients.length],
-          rating: 0,
-          tags: [],
-        }));
-        setPeopleList(mapped);
+        setPeopleList(mapUsers(data.data));
+        setCurrentPage(1);
+        setHasMore(data.next_page_url !== null);
       } catch {
         // silencioso
       } finally {
@@ -98,6 +103,72 @@ export default function Connect() {
     };
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    if (searchQuery === "") return;
+    const searchUsers = async () => {
+      setSearching(true);
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch(`http://api.devhub.com/api/users?search=${encodeURIComponent(searchQuery)}`, {
+          headers: { "Accept": "application/json", "Authorization": `Bearer ${token}` },
+        });
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        setPeopleList(mapUsers(data.data));
+        setHasMore(false);
+      } catch {
+        console.error("Error al buscar usuarios");
+      } finally {
+        setSearching(false);
+      }
+    };
+    const debounce = setTimeout(searchUsers, 400);
+    return () => clearTimeout(debounce);
+  }, [searchQuery]);
+
+  const handleLoadMore = async () => {
+    setLoadingMore(true);
+    try {
+      const token = localStorage.getItem("token");
+      const nextPage = currentPage + 1;
+      const res = await fetch(`http://api.devhub.com/api/users?page=${nextPage}`, {
+        headers: { "Accept": "application/json", "Authorization": `Bearer ${token}` },
+      });
+      if (!res.ok) throw new Error();
+      const data = await res.json();
+      setPeopleList((prev) => [...prev, ...mapUsers(data.data)]);
+      setCurrentPage(nextPage);
+      setHasMore(data.next_page_url !== null);
+    } catch {
+      console.error("Error al cargar más usuarios");
+    } finally {
+      setLoadingMore(false);
+    }
+  };
+
+  const handleSearchChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchQuery(value);
+    if (value === "") {
+      setLoading(true);
+      try {
+        const token = localStorage.getItem("token");
+        const res = await fetch("http://api.devhub.com/api/users?page=1", {
+          headers: { "Accept": "application/json", "Authorization": `Bearer ${token}` },
+        });
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        setPeopleList(mapUsers(data.data));
+        setCurrentPage(1);
+        setHasMore(data.next_page_url !== null);
+      } catch {
+        console.error("Error al recargar usuarios");
+      } finally {
+        setLoading(false);
+      }
+    }
+  };
 
   const toggleFollowPerson = async (id: number) => {
     try {
@@ -133,11 +204,6 @@ export default function Connect() {
     ));
   };
 
-  const filteredPeople = peopleList.filter((p) =>
-    p.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    p.username.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   return (
     <div className="min-h-screen flex" style={{ backgroundColor: "#F0EEFA" }}>
       <Sidebar />
@@ -153,7 +219,7 @@ export default function Connect() {
             <div style={{ width: "220px" }}>
               <div className="relative">
                 <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2" style={{ color: "#9B8EC4" }} />
-                <input type="text" value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)}
+                <input type="text" value={searchQuery} onChange={handleSearchChange}
                   placeholder="Buscar developers..."
                   className="w-full pl-9 pr-3 py-2 rounded-full border focus:outline-none focus:ring-2 text-sm"
                   style={{ backgroundColor: "#F0EEFA", borderColor: "#DDD6FE", color: "#1A1A2E" }} />
@@ -185,12 +251,12 @@ export default function Connect() {
           {/* People Grid */}
           {activeTab === "people" && (
             <>
-              {loading && <p className="text-center py-12" style={{ color: "#9B8EC4" }}>Cargando usuarios...</p>}
-              {!loading && filteredPeople.length === 0 && (
+              {(loading || searching) && <p className="text-center py-12" style={{ color: "#9B8EC4" }}>{searching ? "Buscando..." : "Cargando usuarios..."}</p>}
+              {!loading && !searching && peopleList.length === 0 && (
                 <p className="text-center py-12" style={{ color: "#9B8EC4" }}>No hay usuarios todavía.</p>
               )}
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {filteredPeople.map((person) => (
+                {!loading && !searching && peopleList.map((person) => (
                   <div key={person.id}
                     className="bg-white rounded-xl overflow-hidden transition-all border relative cursor-pointer hover:shadow-lg"
                     style={{ borderColor: "#EDE9FA", boxShadow: "0 2px 12px rgba(124,58,237,0.06)" }}
@@ -251,6 +317,23 @@ export default function Connect() {
                   </div>
                 ))}
               </div>
+              {hasMore && !searching && (
+                <div className="mt-6 flex justify-center">
+                  <button
+                    onClick={handleLoadMore}
+                    disabled={loadingMore}
+                    className="px-8 py-3 rounded-full font-semibold transition-all border-2"
+                    style={{
+                      borderColor: "#7C3AED",
+                      color: "#7C3AED",
+                      backgroundColor: "white",
+                      opacity: loadingMore ? 0.7 : 1,
+                    }}
+                  >
+                    {loadingMore ? "Cargando..." : "Ver más usuarios"}
+                  </button>
+                </div>
+              )}
             </>
           )}
 
