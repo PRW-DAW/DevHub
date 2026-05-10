@@ -79,6 +79,9 @@ export default function Profile() {
           const dataMe = await resMe.json();
           setFollowersCount(dataMe.followers_count);
           setFollowingCount(dataMe.following_count);
+          const freshUser = { ...authUser, name: dataMe.name, username: dataMe.username, bio: dataMe.bio, avatar: dataMe.avatar };
+          setAuthUser(freshUser);
+          localStorage.setItem("user", JSON.stringify(freshUser));
         }
       } catch {
         // silencioso
