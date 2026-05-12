@@ -836,7 +836,7 @@ Content-Type: application/json
   "project_link": "https://devhub-demo.vercel.app",
   "github_link": "https://github.com/PRW-DAW/DevHub",
   "status": "active",
-  "created_at": "2026-05-10T12:00:00.000000Z",
+  "created_at": "2026-05-13T18:40:00.000000Z",
   "user": { "id": 1, "name": "Alba", "username": "alba" }
 }</pre></div>
                             </div>
@@ -1068,7 +1068,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></
     "id": 3,
     "user_id": 1,
     "body": "Great project!",
-    "created_at": "2026-05-09T18:00:00.000000Z",
+    "created_at": "2026-05-13T18:40:00.000000Z",
     "user": { "id": 1, "name": "Alba", "username": "alba" }
   }
 ]</pre></div>
@@ -1108,7 +1108,7 @@ Content-Type: application/json
   "user_id": 1,
   "project_id": 7,
   "body": "Great project!",
-  "created_at": "2026-05-10T12:00:00.000000Z",
+  "created_at": "2026-05-13T18:40:00.000000Z",
   "user": { "id": 1, "name": "Alba", "username": "alba" }
 }</pre></div>
                             </div>
@@ -1207,7 +1207,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></
     "user_id": 1,
     "content": "Hello DevHub!",
     "media_url": null,
-    "created_at": "2026-05-09T10:00:00.000000Z"
+    "created_at": "2026-05-13T18:40:00.000000Z"
   }
 ]</pre></div>
                             </div>
@@ -1246,7 +1246,7 @@ Content-Type: application/json
   "user_id": 1,
   "content": "Hello DevHub!",
   "media_url": null,
-  "created_at": "2026-05-10T12:00:00.000000Z"
+  "created_at": "2026-05-13T18:40:00.000000Z"
 }</pre></div>
                             </div>
                         </div>
