@@ -17,6 +17,14 @@
 [![Docker Pulls](https://img.shields.io/docker/pulls/fjrodafo/devhub-nginx?style=flat&logo=docker&logoColor=FFFFFF&label=Pulls&labelColor=2560FF&color=2560FF)](https://hub.docker.com/r/fjrodafo/devhub-nginx)
 [![Image Size](https://img.shields.io/docker/image-size/fjrodafo/devhub-nginx?style=flat&logo=docker&logoColor=FFFFFF&label=Size&labelColor=2560FF&color=2560FF)](https://hub.docker.com/r/fjrodafo/devhub-nginx)
 
+[![npm](https://img.shields.io/badge/Demo-CD0000?style=flat&logo=npm&logoColor=FFFFFF)](https://github.com/orgs/PRW-DAW/packages/npm/package/devhub-demo)
+[![npm Downloads](https://img.shields.io/npm/d18m/@prw-daw/devhub-demo?style=flat&logo=npm&logoColor=FFFFFF&label=Downloads&labelColor=CD0000&color=CD0000)](https://www.npmjs.com/package/@prw-daw/devhub-demo)
+[![npm Unpacked Size](https://img.shields.io/npm/unpacked-size/@prw-daw/devhub-demo?style=flat&logo=npm&logoColor=FFFFFF&label=Size&labelColor=CD0000&color=CD0000)](https://www.npmjs.com/package/@prw-daw/devhub-demo)
+
+[![npm](https://img.shields.io/badge/Frontend-CD0000?style=flat&logo=npm&logoColor=FFFFFF)](https://github.com/orgs/PRW-DAW/packages/npm/package/devhub-frontend)
+[![npm Downloads](https://img.shields.io/npm/d18m/@prw-daw/devhub-frontend?style=flat&logo=npm&logoColor=FFFFFF&label=Downloads&labelColor=CD0000&color=CD0000)](https://www.npmjs.com/package/@prw-daw/devhub-frontend)
+[![npm Unpacked Size](https://img.shields.io/npm/unpacked-size/@prw-daw/devhub-frontend?style=flat&logo=npm&logoColor=FFFFFF&label=Size&labelColor=CD0000&color=CD0000)](https://www.npmjs.com/package/@prw-daw/devhub-frontend)
+
 ## Índice
 
 1. [Introducción](#introducción)
@@ -41,8 +49,12 @@ Este proyecto se ha desarrollado en un sistema [Linux](https://github.com/torval
 ├── backend/
 │   ├── .env
 │   └── Dockerfile
+├── database/
+|   └── devhub.drawio.svg
+├── demo/
+|   └── package.json
 ├── docs/
-|   └── *.md
+|   └── README.md
 ├── frontend/
 │   └── Dockerfile
 ├── nginx/
@@ -51,7 +63,6 @@ Este proyecto se ha desarrollado en un sistema [Linux](https://github.com/torval
 │   └── Dockerfile
 ├── CONTRIBUTING
 ├── LICENSE
-├── .dockerignore
 ├── .env
 └── docker-compose.yaml
 ```
