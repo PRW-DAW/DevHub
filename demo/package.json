@@ -1,12 +1,14 @@
 {
-  "name": "@figma/my-make-file",
-  "private": true,
-  "version": "0.0.1",
+  "name": "@prw-daw/devhub-demo",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "build": "vite build",
     "dev": "vite",
-    "tarball": "npm pack --dry-run"
+    "tarball": "npm pack --dry-run",
+    "publish:npm": "npm publish --access=public --registry=https://registry.npmjs.org/",
+    "publish:github": "npm publish --registry=https://npm.pkg.github.com/"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
