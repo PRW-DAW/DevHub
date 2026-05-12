@@ -360,39 +360,39 @@
                 </div>
 
                 <div class="sidebar-section">Auth</div>
-                <a class="sidebar-link" onclick="scrollTo('auth')"><span class="method-pill post">POST</span> /register</a>
-                <a class="sidebar-link" onclick="scrollTo('auth')"><span class="method-pill post">POST</span> /login</a>
-                <a class="sidebar-link" onclick="scrollTo('auth')"><span class="method-pill post">POST</span> /logout</a>
+                <a class="sidebar-link" onclick="goTo('auth')"><span class="method-pill post">POST</span> /register</a>
+                <a class="sidebar-link" onclick="goTo('auth')"><span class="method-pill post">POST</span> /login</a>
+                <a class="sidebar-link" onclick="goTo('auth')"><span class="method-pill post">POST</span> /logout</a>
 
                 <div class="sidebar-section">Users</div>
-                <a class="sidebar-link" onclick="scrollTo('users')"><span class="method-pill get">GET</span> /me</a>
-                <a class="sidebar-link" onclick="scrollTo('users')"><span class="method-pill put">PUT</span> /me</a>
-                <a class="sidebar-link" onclick="scrollTo('users')"><span class="method-pill get">GET</span> /users</a>
-                <a class="sidebar-link" onclick="scrollTo('users')"><span class="method-pill get">GET</span> /users/top</a>
-                <a class="sidebar-link" onclick="scrollTo('users')"><span class="method-pill get">GET</span> /users/{id}</a>
-                <a class="sidebar-link" onclick="scrollTo('users')"><span class="method-pill post">POST</span> /follow/{id}</a>
+                <a class="sidebar-link" onclick="goTo('users')"><span class="method-pill get">GET</span> /me</a>
+                <a class="sidebar-link" onclick="goTo('users')"><span class="method-pill put">PUT</span> /me</a>
+                <a class="sidebar-link" onclick="goTo('users')"><span class="method-pill get">GET</span> /users</a>
+                <a class="sidebar-link" onclick="goTo('users')"><span class="method-pill get">GET</span> /users/top</a>
+                <a class="sidebar-link" onclick="goTo('users')"><span class="method-pill get">GET</span> /users/{id}</a>
+                <a class="sidebar-link" onclick="goTo('users')"><span class="method-pill post">POST</span> /follow/{id}</a>
 
                 <div class="sidebar-section">Projects</div>
-                <a class="sidebar-link" onclick="scrollTo('projects')"><span class="method-pill get">GET</span> /projects</a>
-                <a class="sidebar-link" onclick="scrollTo('projects')"><span class="method-pill post">POST</span> /projects</a>
-                <a class="sidebar-link" onclick="scrollTo('projects')"><span class="method-pill get">GET</span> /projects/{id}</a>
-                <a class="sidebar-link" onclick="scrollTo('projects')"><span class="method-pill put">PUT</span> /projects/{id}</a>
-                <a class="sidebar-link" onclick="scrollTo('projects')"><span class="method-pill del">DEL</span> /projects/{id}</a>
-                <a class="sidebar-link" onclick="scrollTo('projects')"><span class="method-pill get">GET</span> /me/projects</a>
-                <a class="sidebar-link" onclick="scrollTo('projects')"><span class="method-pill get">GET</span> /users/{id}/projects</a>
-                <a class="sidebar-link" onclick="scrollTo('projects')"><span class="method-pill get">GET</span> /projects/top-technologies</a>
+                <a class="sidebar-link" onclick="goTo('projects')"><span class="method-pill get">GET</span> /projects</a>
+                <a class="sidebar-link" onclick="goTo('projects')"><span class="method-pill post">POST</span> /projects</a>
+                <a class="sidebar-link" onclick="goTo('projects')"><span class="method-pill get">GET</span> /projects/{id}</a>
+                <a class="sidebar-link" onclick="goTo('projects')"><span class="method-pill put">PUT</span> /projects/{id}</a>
+                <a class="sidebar-link" onclick="goTo('projects')"><span class="method-pill del">DEL</span> /projects/{id}</a>
+                <a class="sidebar-link" onclick="goTo('projects')"><span class="method-pill get">GET</span> /me/projects</a>
+                <a class="sidebar-link" onclick="goTo('projects')"><span class="method-pill get">GET</span> /users/{id}/projects</a>
+                <a class="sidebar-link" onclick="goTo('projects')"><span class="method-pill get">GET</span> /projects/top-technologies</a>
 
                 <div class="sidebar-section">Comments</div>
-                <a class="sidebar-link" onclick="scrollTo('comments')"><span class="method-pill get">GET</span> /projects/{id}/comments</a>
-                <a class="sidebar-link" onclick="scrollTo('comments')"><span class="method-pill post">POST</span> /projects/{id}/comments</a>
-                <a class="sidebar-link" onclick="scrollTo('comments')"><span class="method-pill del">DEL</span> /comments/{id}</a>
+                <a class="sidebar-link" onclick="goTo('comments')"><span class="method-pill get">GET</span> /projects/{id}/comments</a>
+                <a class="sidebar-link" onclick="goTo('comments')"><span class="method-pill post">POST</span> /projects/{id}/comments</a>
+                <a class="sidebar-link" onclick="goTo('comments')"><span class="method-pill del">DEL</span> /comments/{id}</a>
 
                 <div class="sidebar-section">Ratings</div>
-                <a class="sidebar-link" onclick="scrollTo('ratings')"><span class="method-pill post">POST</span> /projects/{id}/rate</a>
+                <a class="sidebar-link" onclick="goTo('ratings')"><span class="method-pill post">POST</span> /projects/{id}/rate</a>
 
                 <div class="sidebar-section">Posts</div>
-                <a class="sidebar-link" onclick="scrollTo('posts')"><span class="method-pill get">GET</span> /posts</a>
-                <a class="sidebar-link" onclick="scrollTo('posts')"><span class="method-pill post">POST</span> /posts</a>
+                <a class="sidebar-link" onclick="goTo('posts')"><span class="method-pill get">GET</span> /posts</a>
+                <a class="sidebar-link" onclick="goTo('posts')"><span class="method-pill post">POST</span> /posts</a>
             </nav>
 
             <!-- Main -->
@@ -1259,7 +1259,7 @@ Content-Type: application/json
                 el.classList.toggle('open');
             }
 
-            function scrollTo(id) {
+            function goTo(id) {
                 document.getElementById(id).scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
 
