@@ -1,15 +1,14 @@
+# DevHub app redesign
 
-  # DevHub app redesign
+This is a code bundle for DevHub app redesign. The original project is available at https://www.figma.com/design/cy7ufAmLdg67uiI8fAl07E/DevHub-app-redesign.
 
-  This is a code bundle for DevHub app redesign. The original project is available at https://www.figma.com/design/cy7ufAmLdg67uiI8fAl07E/DevHub-app-redesign.
+## Running the code
 
-  ## Running the code
+Run `npm i` to install the dependencies.
 
-  Run `npm i` to install the dependencies.
+Run `npm run dev` to start the development server.
 
-  Run `npm run dev` to start the development server.
-
-  # DevHub App Redesign
+# DevHub App Redesign
 
 Plataforma de portfolio y networking para developers junior.
 Diseñada en Figma Make · React + Vite.
@@ -17,6 +16,7 @@ Diseñada en Figma Make · React + Vite.
 ## 🚀 Cómo desplegarlo en local
 
 ### Requisitos previos
+
 - Node.js (v18 o superior)
 - npm o yarn
 
