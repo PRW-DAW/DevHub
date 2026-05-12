@@ -19,10 +19,10 @@
                 --accent: #f53003;
                 --tag-get: #16a34a;
                 --tag-get-bg: #f0fdf4;
-                --tag-post: #2563eb;
-                --tag-post-bg: #eff6ff;
-                --tag-put: #d97706;
-                --tag-put-bg: #fffbeb;
+                --tag-post: #d97706;
+                --tag-post-bg: #fffbeb;
+                --tag-put: #2563eb;
+                --tag-put-bg: #eff6ff;
                 --tag-delete: #dc2626;
                 --tag-delete-bg: #fef2f2;
                 --code-bg: #f5f5f3;
@@ -41,10 +41,10 @@
                     --accent: #FF4433;
                     --tag-get: #4ade80;
                     --tag-get-bg: #052e16;
-                    --tag-post: #60a5fa;
-                    --tag-post-bg: #172554;
-                    --tag-put: #fbbf24;
-                    --tag-put-bg: #1c1400;
+                    --tag-post: #fbbf24;
+                    --tag-post-bg: #1c1400;
+                    --tag-put: #60a5fa;
+                    --tag-put-bg: #172554;
                     --tag-delete: #f87171;
                     --tag-delete-bg: #1c0000;
                     --code-bg: #1e1e1c;
@@ -440,20 +440,20 @@ Content-Type: application/json
 {
   "name": "Alba",
   "username": "alba",
-  "email": "alba@test.com",
-  "password": "password123",
-  "password_confirmation": "password123"
+  "email": "alba@devhub.com",
+  "password": "123456",
+  "password_confirmation": "123456"
 }</pre></div>
                                 <div class="tab-content" id="res-register"><pre>{
-  "token": "1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lL...",
   "user": {
     "id": 1,
     "name": "Alba",
     "username": "alba",
-    "email": "alba@test.com",
-    "bio": null,
-    "avatar": null
-  }
+    "email": "alba@devhub.com",
+    "updated_at": "2026-05-13T18:40:00.000000Z",
+    "created_at": "2026-05-13T18:40:00.000000Z"
+  },
+  "token": "1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755"
 }</pre></div>
                             </div>
                         </div>
@@ -483,19 +483,22 @@ Content-Type: application/json
 Content-Type: application/json
 
 {
-  "email": "alba@test.com",
-  "password": "password123"
+  "email": "alba@devhub.com",
+  "password": "123456"
 }</pre></div>
                                 <div class="tab-content" id="res-login"><pre>{
-  "token": "1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lL...",
   "user": {
     "id": 1,
     "name": "Alba",
     "username": "alba",
-    "email": "alba@test.com",
-    "bio": null,
-    "avatar": null
-  }
+    "email": "alba@devhub.com",
+    "email_verified_at": null,
+    "updated_at": "2026-05-13T18:40:00.000000Z",
+    "created_at": "2026-05-13T18:40:00.000000Z",
+    "avatar": null,
+    "bio": null
+  },
+  "token": "1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755"
 }</pre></div>
                             </div>
                         </div>
@@ -518,9 +521,9 @@ Content-Type: application/json
                                     <div class="tab" onclick="switchTab(this, 'res-logout')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-logout"><pre>POST /api/logout
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-logout"><pre>{
-  "message": "Logged out"
+  "message": "Sesión cerrada"
 }</pre></div>
                             </div>
                         </div>
@@ -548,13 +551,13 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-me')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-me"><pre>GET /api/me
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-me"><pre>{
   "id": 1,
   "name": "Alba",
   "username": "alba",
-  "email": "alba@test.com",
-  "bio": "Full-Stack developer",
+  "email": "alba@devhub.com",
+  "bio": "Full-Stack developer.",
   "avatar": null,
   "followers_count": 2,
   "following_count": 3,
@@ -587,7 +590,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-me-update')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-me-update"><pre>PUT /api/me
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755
 Content-Type: application/json
 
 {
@@ -597,7 +600,7 @@ Content-Type: application/json
   "id": 1,
   "name": "Alba",
   "username": "alba",
-  "email": "alba@test.com",
+  "email": "alba@devhub.com",
   "bio": "Full-Stack developer passionate about React and Laravel.",
   "avatar": null
 }</pre></div>
@@ -627,7 +630,7 @@ Content-Type: application/json
                                     <div class="tab" onclick="switchTab(this, 'res-users')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-users"><pre>GET /api/users?search=fran&page=1
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-users"><pre>{
   "current_page": 1,
   "data": [
@@ -666,7 +669,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-users-top')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-users-top"><pre>GET /api/users/top
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-users-top"><pre>[
   { "id": 1, "name": "Alba", "username": "alba", "followers_count": 4 },
   { "id": 2, "name": "Francisco José", "username": "fran", "followers_count": 2 }
@@ -692,7 +695,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-user-show')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-user-show"><pre>GET /api/users/2
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-user-show"><pre>{
   "id": 2,
   "name": "Francisco José",
@@ -725,7 +728,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-follow')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-follow"><pre>POST /api/follow/2
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-follow"><pre>{ "following": true }
 
 // or when unfollowing:
@@ -761,7 +764,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-projects')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-projects"><pre>GET /api/projects?search=React&page=1
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-projects"><pre>{
   "current_page": 1,
   "data": [
@@ -814,7 +817,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-projects-store')">Response 201</div>
                                 </div>
                                 <div class="tab-content active" id="req-projects-store"><pre>POST /api/projects
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755
 Content-Type: application/json
 
 {
@@ -857,7 +860,7 @@ Content-Type: application/json
                                     <div class="tab" onclick="switchTab(this, 'res-project-show')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-project-show"><pre>GET /api/projects/7
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-project-show"><pre>{
   "id": 7,
   "title": "CV",
@@ -903,7 +906,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-project-update')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-project-update"><pre>PUT /api/projects/7
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755
 Content-Type: application/json
 
 {
@@ -936,7 +939,7 @@ Content-Type: application/json
                                     <div class="tab" onclick="switchTab(this, 'res-project-delete')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-project-delete"><pre>DELETE /api/projects/7
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-project-delete"><pre>{
   "message": "Proyecto eliminado"
 }</pre></div>
@@ -965,7 +968,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-me-projects')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-me-projects"><pre>GET /api/me/projects?page=1
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-me-projects"><pre>{
   "current_page": 1,
   "data": [ { ... } ],
@@ -997,7 +1000,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-user-projects')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-user-projects"><pre>GET /api/users/6/projects?page=1
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-user-projects"><pre>{
   "current_page": 1,
   "data": [ { ... } ],
@@ -1025,7 +1028,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-top-tech')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-top-tech"><pre>GET /api/projects/top-technologies
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-top-tech"><pre>[
   { "name": "React",      "count": 12, "percentage": 27.3 },
   { "name": "Laravel",    "count": 8,  "percentage": 18.2 },
@@ -1059,7 +1062,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-comments-index')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-comments-index"><pre>GET /api/projects/7/comments
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-comments-index"><pre>[
   {
     "id": 3,
@@ -1094,7 +1097,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-comments-store')">Response 201</div>
                                 </div>
                                 <div class="tab-content active" id="req-comments-store"><pre>POST /api/projects/7/comments
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755
 Content-Type: application/json
 
 {
@@ -1129,7 +1132,7 @@ Content-Type: application/json
                                     <div class="tab" onclick="switchTab(this, 'res-comments-delete')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-comments-delete"><pre>DELETE /api/comments/3
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-comments-delete"><pre>{
   "message": "Comentario eliminado"
 }</pre></div>
@@ -1162,7 +1165,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-rate')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-rate"><pre>POST /api/projects/7/rate
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755
 Content-Type: application/json
 
 {
@@ -1197,7 +1200,7 @@ Content-Type: application/json
                                     <div class="tab" onclick="switchTab(this, 'res-posts-index')">Response 200</div>
                                 </div>
                                 <div class="tab-content active" id="req-posts-index"><pre>GET /api/posts
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755</pre></div>
                                 <div class="tab-content" id="res-posts-index"><pre>[
   {
     "id": 1,
@@ -1232,7 +1235,7 @@ Authorization: Bearer 1|hJAWha4FEVlL6zF5...</pre></div>
                                     <div class="tab" onclick="switchTab(this, 'res-posts-store')">Response 201</div>
                                 </div>
                                 <div class="tab-content active" id="req-posts-store"><pre>POST /api/posts
-Authorization: Bearer 1|hJAWha4FEVlL6zF5...
+Authorization: Bearer 1|hJAWha4FEVlL6zF5LYcUKjwvS33DP7lLKv5RkgFU67ae7755
 Content-Type: application/json
 
 {
