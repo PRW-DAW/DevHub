@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-MAJOR="0"
-MINOR="0.15"
-PATCH="0.15.0"
+MAJOR="1"
+MINOR="1.0"
+PATCH="1.0.0"
 
 build_and_push() {
     local name=$1

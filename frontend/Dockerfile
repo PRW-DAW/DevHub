@@ -3,7 +3,7 @@ FROM node:24-alpine
 LABEL org.opencontainers.image.authors="Francisco José Rodríguez Afonso"
 LABEL org.opencontainers.image.documentation="https://prw-daw.github.io/DevHub/"
 LABEL org.opencontainers.image.source="https://github.com/PRW-DAW/DevHub"
-LABEL org.opencontainers.image.version="0.15.0"
+LABEL org.opencontainers.image.version="1.0.0"
 LABEL org.opencontainers.image.vendor="PRW-DAW"
 LABEL org.opencontainers.image.licenses="CC0-1.0"
 LABEL org.opencontainers.image.title="DevHub | Frontend"
