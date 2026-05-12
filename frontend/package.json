@@ -1,14 +1,16 @@
 {
-  "name": "frontend",
-  "private": true,
-  "version": "0.0.0",
+  "name": "@prw-daw/devhub-frontend",
+  "private": false,
+  "version": "1.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "tarball": "npm pack --dry-run"
+    "tarball": "npm pack --dry-run",
+    "publish:npm": "npm publish --access=public --registry=https://registry.npmjs.org/",
+    "publish:github": "npm publish --registry=https://npm.pkg.github.com/"
   },
   "dependencies": {
     "@emotion/react": "^11.14.0",
