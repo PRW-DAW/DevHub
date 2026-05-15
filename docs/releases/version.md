@@ -1,4 +1,4 @@
-## Introduction
+# Version
 
 This file explains the versioning system used in this project, based on Semantic Versioning. It outlines how version numbers are structured and when to increment major, minor, or patch versions based on the nature of changes made.
 
